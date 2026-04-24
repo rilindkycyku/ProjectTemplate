@@ -1,0 +1,85 @@
+.admin-console {
+  position: fixed;
+  top: 5svh;
+  left: 5vw;
+  width: 90vw;
+  height: 90vh;
+  z-index: 2000;
+  padding: 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--secondary);
+  border-color: var(--secondary);
+}
+
+.admin-sidebar {
+  border-right: 1px solid var(--border);
+  padding-right: 1.5rem;
+}
+
+.admin-nav-link {
+  color: var(--text-muted) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.admin-nav-link.active {
+  background: var(--primary) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+.admin-nav-link:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+}
+
+.admin-content {
+  padding-left: 2rem;
+  height: 70vh;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for admin content */
+.admin-content::-webkit-scrollbar {
+  width: 6px;
+}
+.admin-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.dashboard-content-wrapper {
+  margin-top: 1rem;
+  width: 100%;
+}
+

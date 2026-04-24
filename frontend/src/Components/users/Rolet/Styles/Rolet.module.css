@@ -1,0 +1,40 @@
+.roleContainer {
+  padding: 1rem 0;
+  animation: fadeIn 0.4s ease;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.scrollableTable {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.deleteBtn {
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  color: var(--secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.deleteBtn:hover:not(:disabled) {
+  background: var(--secondary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.deleteBtn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}

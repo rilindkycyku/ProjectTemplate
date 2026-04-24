@@ -1,0 +1,10 @@
+# Visual Studio / ASP.NET Core ignores
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+
+# Ignore environment specific appsettings
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
