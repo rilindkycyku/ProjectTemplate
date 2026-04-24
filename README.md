@@ -37,8 +37,8 @@ Kjo do te gjeneroje automatikisht Databasen dhe do te insertoje te dhenat bazike
 Pastaj duhet te startoni **WebAPI** nga Visual Studio, dhe ne **VS Code / Terminal** te hapni folderin `frontend` dhe te beni run keto komanda:
 
 ```
-- **npm install** - Instalon paketat e nevojshme *(vetem here e pare)*
-- **npm run dev** - Starton serverin e development-it
+- npm install - Instalon paketat e nevojshme (vetem here e pare)
+- npm run dev - Starton serverin e development-it
 ```
 
 Pasi qe te behet konfigurimi, ju mund te kyqeni me keto te dhena:
