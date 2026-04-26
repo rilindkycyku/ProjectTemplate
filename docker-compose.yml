@@ -1,0 +1,46 @@
+services:
+
+  # ── SQL Server ───────────────────────────────────────────────────────────────
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: projecttemplate-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${DB_SA_PASSWORD}"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqldata:/var/opt/mssql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${DB_SA_PASSWORD} -C -Q 'SELECT 1' || exit 1"]
+      interval: 15s
+      retries: 10
+      start_period: 30s
+
+  # ── ASP.NET Core API ─────────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./WebAPI/WebAPI
+      dockerfile: Dockerfile
+    container_name: projecttemplate-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__Conn: "Server=db;Database=ProjectTemplateDB;User Id=sa;Password=${DB_SA_PASSWORD};TrustServerCertificate=True"
+      JwtConfig__Secret: "${JWT_SECRET}"
+    ports:
+      - "5274:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  sqldata:
+
+networks:
+  app-network:
+    driver: bridge

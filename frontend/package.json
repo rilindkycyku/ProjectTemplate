@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/update-env.js && vite",
+    "dev": "node scripts/update-env.js && vite --host",
     "build": "node scripts/update-env.js && vite build",
     "update-env": "node scripts/update-env.js",
     "lint": "eslint .",

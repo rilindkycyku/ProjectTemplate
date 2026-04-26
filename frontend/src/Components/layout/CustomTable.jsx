@@ -78,7 +78,7 @@ const ExportModal = ({ data, fileName, onClose }) => {
     { id: "json", label: "JSON",  color: "#6366f1", desc: "Developer" },
     { id: "html", label: "HTML",  color: "#f59e0b", desc: "Web page" },
     { id: "xml",  label: "XML",   color: "#8b5cf6", desc: "Structured" },
-    { id: "txt",  label: "Text",  color: "#64748b", desc: "Plain text" },
+    { id: "txt",  label: "Text",  color: "#94a3b8", desc: "Plain text" },
   ];
 
   return (
@@ -135,8 +135,6 @@ const ExportModal = ({ data, fileName, onClose }) => {
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
                 gap: "0.6rem",
-                maxHeight: 280,
-                overflowY: "auto",
                 padding: "0.25rem",
               }}
             >
@@ -153,9 +151,9 @@ const ExportModal = ({ data, fileName, onClose }) => {
                       padding: "0.5rem 0.75rem",
                       borderRadius: 10,
                       cursor: "pointer",
-                      border: `1px solid ${active ? "#6366f1" : "#e2e8f0"}`,
-                      background: active ? "#eef2ff" : "#f8fafc",
-                      color: active ? "#6366f1" : "inherit",
+                      border: `1px solid ${active ? "#6366f1" : "rgba(255,255,255,0.12)"}`,
+                      background: active ? "rgba(99,102,241,0.18)" : "rgba(255,255,255,0.05)",
+                      color: active ? "#a5b4fc" : "rgba(255,255,255,0.75)",
                       fontWeight: active ? 700 : 500,
                       transition: "all 0.15s ease",
                       fontSize: "0.8rem",
@@ -166,8 +164,8 @@ const ExportModal = ({ data, fileName, onClose }) => {
                         width: 16,
                         height: 16,
                         borderRadius: 4,
-                        border: `2px solid ${active ? "#6366f1" : "#cbd5e1"}`,
-                        background: active ? "#6366f1" : "white",
+                        border: `2px solid ${active ? "#6366f1" : "rgba(255,255,255,0.25)"}`,
+                        background: active ? "#6366f1" : "rgba(255,255,255,0.08)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -233,7 +231,7 @@ const ExportModal = ({ data, fileName, onClose }) => {
                 >
                   {f.label}
                 </span>
-                <span style={{ fontSize: "0.7rem", color: "#64748b", fontWeight: 600 }}>
+                <span style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>
                   {f.desc}
                 </span>
               </button>

@@ -18,7 +18,25 @@ Ky projekt eshte i punuar ne:
 
 ## Konfigurimi
 
-Se pari duhet te behet konfigurimi i Connection String ne `WebAPI/WebAPI/appsettings.json` dhe duhet te nderrohet emri i serverit me ate te serverit tuaj:
+Ju mund ta startoni projektin në dy mënyra: duke përdorur **Docker** (më e lehta) ose **Manulisht** përmes Visual Studio.
+
+### Opsioni 1: Përdorimi i Docker (Rekomandohet)
+
+1. Në folderin kryesor të projektit, kopjoni file-in `.env.example` dhe emërtojeni `.env`.
+2. Hapni terminalin në folderin kryesor dhe ekzekutoni komandën:
+   ```bash
+   docker compose up -d
+   ```
+   *(Kjo komandë do të shkarkojë dhe startojë automatikisht databazën MSSQL dhe WebAPI-në. Databaza do të migrohet dhe të dhënat fillestare do të shtohen vetë).*
+3. Hapni një terminal të ri në folderin `frontend` dhe ekzekutoni:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+### Opsioni 2: Konfigurimi Manual (Pa Docker)
+
+1. Së pari duhet të bëhet konfigurimi i Connection String në `WebAPI/WebAPI/appsettings.json` dhe duhet të ndërrohet emri i serverit me atë të serverit tuaj:
 
 ```json
 "ConnectionStrings": {
@@ -26,18 +44,18 @@ Se pari duhet te behet konfigurimi i Connection String ne `WebAPI/WebAPI/appsett
 }
 ```
 
-Pastaj ne **Visual Studio**, ne **Package Manager Console** (me projektin **WebAPI** si Default Project), duhet te beni run komanden:
+2. Pastaj në **Visual Studio**, në **Package Manager Console** (me projektin **WebAPI** si Default Project), duhet të bëni run komandën:
 
 ```
 EntityFrameworkCore\update-database
 ```
 
-Kjo do te gjeneroje automatikisht Databasen dhe do te insertoje te dhenat bazike (rolet dhe perdoruesit fillestar).
+Kjo do të gjenerojë automatikisht Databasën dhe do të insertojë të dhënat bazike (rolet dhe përdoruesit fillestar).
 
-Pastaj duhet te startoni **WebAPI** nga Visual Studio, dhe ne **VS Code / Terminal** te hapni folderin `frontend` dhe te beni run keto komanda:
+3. Pastaj duhet të startoni **WebAPI** nga Visual Studio, dhe në **VS Code / Terminal** të hapni folderin `frontend` dhe të bëni run këto komanda:
 
 ```
-- npm install - Instalon paketat e nevojshme (vetem here e pare)
+- npm install - Instalon paketat e nevojshme (vetëm herën e parë)
 - npm run dev - Starton serverin e development-it
 ```
 

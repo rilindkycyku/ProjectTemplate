@@ -19,7 +19,7 @@ public class SiteSettingsController : ControllerBase
         _env = env;
     }
 
-    // GET — public, no auth needed (navbar/footer need it)
+    // GET - public, no auth needed (navbar/footer need it)
     [HttpGet]
     [Route("ShfaqCilesimet")]
     public async Task<IActionResult> ShfaqCilesimet()
@@ -29,7 +29,7 @@ public class SiteSettingsController : ControllerBase
         return Ok(settings);
     }
 
-    // PUT — admin only, update text fields
+    // PUT - admin only, update text fields
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     [HttpPut]
     [Route("PerditesCilesimet")]
@@ -53,7 +53,7 @@ public class SiteSettingsController : ControllerBase
         return Ok(settings);
     }
 
-    // POST — admin only, upload logo image
+    // POST - admin only, upload logo image
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     [HttpPost]
     [Route("NgarkoLogo")]
