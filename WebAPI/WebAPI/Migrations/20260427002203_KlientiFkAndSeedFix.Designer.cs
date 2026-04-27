@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
@@ -11,9 +12,11 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260427002203_KlientiFkAndSeedFix")]
+    partial class KlientiFkAndSeedFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,6 +246,24 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bankat");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 100,
+                            EmriBankes = "Raiffeisen Bank",
+                            IsActive = true,
+                            NrLlogaris = "1501 0000 0000 0001",
+                            Valuta = "EUR"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            EmriBankes = "ProCredit Bank",
+                            IsActive = true,
+                            NrLlogaris = "1110 0000 0000 0001",
+                            Valuta = "EUR"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.Fatura", b =>
@@ -379,6 +400,28 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Klientet");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 100,
+                            Adresa = "Prishtinë, Kosovë",
+                            Email = "info@klienti.com",
+                            EmriKompanise = "Klienti Test Sh.p.k",
+                            NRB = "70000000",
+                            NUI = "811000000",
+                            Telefoni = "+383 44 111 222"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            Adresa = "Tiranë, Shqipëri",
+                            Email = "contact@model.al",
+                            EmriKompanise = "Kompania Model L.L.C.",
+                            NRB = "K81234567B",
+                            NUI = "L12345678A",
+                            Telefoni = "+355 69 111 2222"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.Perdoruesi", b =>
@@ -456,6 +499,22 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SiteSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adresa = "Prishtine, Kosove",
+                            Email = "contact@template.com",
+                            Facebook = "#",
+                            GitHub = "#",
+                            Instagram = "#",
+                            LinkedIn = "#",
+                            Pershkrimi = "A premium starting point for your next big idea. Built with efficiency, scalability, and modern best practices in mind.",
+                            SiteEmri = "Project Template",
+                            Telefoni = "+383 44 000 000",
+                            Twitter = "#"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.TeDhenatPerdoruesit", b =>

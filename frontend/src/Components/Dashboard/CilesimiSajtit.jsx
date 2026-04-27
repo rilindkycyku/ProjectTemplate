@@ -68,7 +68,9 @@ function CilesimiSajtit() {
 
     if (!form) return <div className="Loader"><TailSpin height="50" width="50" color="#6366f1" /></div>;
 
-    const currentLogo = settings?.logo ? `/img/web/${settings.logo}` : "/img/web/PaLogo.png";
+    const currentLogo = (settings?.logo && settings.logo !== "PaLogo.png") 
+        ? `/img/web/${settings.logo}` 
+        : null;
 
     return (
         <div className="max-w-3xl mx-auto py-8 px-4">

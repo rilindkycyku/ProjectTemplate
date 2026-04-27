@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faChartLine, faCogs, faArrowLeft, faShieldHalved, faServer, faDatabase, faChevronRight, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faChartLine, faCogs, faArrowLeft, faShieldHalved, faServer, faDatabase, faChevronRight, faGlobe, faFileInvoice, faFileInvoiceDollar, faUniversity } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import NavBar from "../layout/NavBar";
@@ -15,6 +15,7 @@ const AdminDashboard = () => {
     identity: true,
     system: true,
     siteConfig: true,
+    modules: true,
   });
   
   const navigate = useNavigate();
@@ -74,11 +75,6 @@ const AdminDashboard = () => {
                   >
                     <FontAwesomeIcon icon={faUsers} className="w-4" /> User Directory
                   </button>
-                  {/* Future sub-category: Roles
-                  <button className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent`}>
-                    <FontAwesomeIcon icon={faUserShield} className="w-4" /> Role Permissions
-                  </button> 
-                  */}
                 </div>
               </div>
 
@@ -124,6 +120,38 @@ const AdminDashboard = () => {
                     onClick={() => setActiveTab('siteSettings')}
                   >
                     <FontAwesomeIcon icon={faGlobe} className="w-4" /> Site Settings
+                  </button>
+                </div>
+              </div>
+
+              {/* Category: Modules */}
+              <div className="mb-4 mt-6">
+                <button
+                  className="w-full flex items-center justify-between text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.1em] mb-2 px-2 hover:text-white transition-colors"
+                  onClick={() => toggleCategory('modules')}
+                >
+                  <span className="flex items-center gap-2"><FontAwesomeIcon icon={faFileInvoice} /> Modules</span>
+                  <FontAwesomeIcon icon={faChevronRight} className={`transition-transform duration-300 ${expandedCategories.modules ? 'rotate-90' : ''}`} />
+                </button>
+
+                <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-1 ${expandedCategories.modules ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <button
+                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent"
+                    onClick={() => navigate('/Faturat')}
+                  >
+                    <FontAwesomeIcon icon={faFileInvoiceDollar} className="w-4" /> Faturat
+                  </button>
+                  <button
+                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent"
+                    onClick={() => navigate('/Bankat')}
+                  >
+                    <FontAwesomeIcon icon={faUniversity} className="w-4" /> Llogaritë Bankare
+                  </button>
+                  <button
+                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent"
+                    onClick={() => navigate('/Klientet')}
+                  >
+                    <FontAwesomeIcon icon={faUsers} className="w-4" /> Klientët
                   </button>
                 </div>
               </div>

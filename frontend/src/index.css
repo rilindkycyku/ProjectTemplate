@@ -1,8 +1,39 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/fonts/Quicksand-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/fonts/Quicksand-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/fonts/Quicksand-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/fonts/Quicksand-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/fonts/Quicksand-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 @theme {
-  --font-sans: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-sans: 'Quicksand', system-ui, -apple-system, sans-serif;
+  --font-display: 'Quicksand', sans-serif;
 
   --color-primary: #6366f1;
   --color-primary-light: #818cf8;
@@ -36,6 +67,7 @@
   }
   body {
     @apply bg-bg-darker text-text-main font-sans antialiased leading-relaxed overflow-x-hidden;
+    color-scheme: dark;
   }
   #root {
     @apply min-h-screen flex flex-col;
@@ -80,6 +112,19 @@
   }
   .form-control-premium {
     @apply bg-white/5 border border-white/10 px-4 py-3.5 rounded-lg text-white w-full text-[0.95rem] font-sans transition-all duration-200 outline-none;
+    appearance: none;
+  }
+  /* Optional: Custom dropdown arrow for select using form-control-premium */
+  select.form-control-premium {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    color-scheme: dark;
+  }
+  .form-control-premium option {
+    @apply bg-bg-card text-white;
   }
   .form-control-premium:focus {
     @apply bg-primary/5 border-primary ring-4 ring-primary/20 text-white;

@@ -6,7 +6,7 @@ import apiClient from "../api/apiClient";
 import { useNavigate } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faUserShield, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faUserShield, faUser, faFileInvoice } from "@fortawesome/free-solid-svg-icons";
 import Mesazhi from "../Components/layout/Mesazhi";
 import PerditesoTeDhenat from "../Components/Dashboard/PerditesoTeDhenat";
 import { useAuth } from "../Context/AuthContext";
@@ -112,6 +112,29 @@ const Dashboard = () => {
                     <FontAwesomeIcon icon={faUserShield} /> Admin Console
                   </button>
                 )}
+              </div>
+            </section>
+
+            {/* Faturat module card */}
+            <section
+              className="glass-card p-8 relative overflow-hidden cursor-pointer group border border-white/10 hover:border-primary/40 transition-all duration-300"
+              onClick={() => navigate('/Faturat')}
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-5">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-[0_8px_24px_rgba(99,102,241,0.35)] group-hover:shadow-[0_12px_32px_rgba(99,102,241,0.5)] transition-all">
+                    <FontAwesomeIcon icon={faFileInvoice} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white m-0">Faturat</h3>
+                    <p className="text-gray-400 text-sm m-0 mt-0.5">Krijo, shiko dhe menaxho faturat</p>
+                  </div>
+                </div>
+                <div className="text-indigo-400 group-hover:translate-x-1 transition-transform text-lg">
+                  →
+                </div>
               </div>
             </section>
           </div>

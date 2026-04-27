@@ -35,9 +35,9 @@ const NavBar = () => {
     // Filter links based on auth state
     const visibleLinks = navLinks.filter(link => !link.requiresAuth || token);
 
-    const logoSrc = settings?.logo
+    const logoSrc = (settings?.logo && settings.logo !== "PaLogo.png")
         ? `/img/web/${settings.logo}`
-        : "/img/web/PaLogo.png";
+        : null;
 
     // Shared desktop link class
     const desktopLinkClass = (path) =>

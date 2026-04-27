@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
@@ -11,9 +12,11 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260426233706_AddFaturaModule")]
+    partial class AddFaturaModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,9 +271,6 @@ namespace WebAPI.Migrations
                     b.Property<string>("KlientiEmri")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("KlientiId")
-                        .HasColumnType("int");
-
                     b.Property<string>("KlientiTelefoni")
                         .HasColumnType("nvarchar(max)");
 
@@ -299,8 +299,6 @@ namespace WebAPI.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KlientiId");
 
                     b.ToTable("Faturat");
                 });
@@ -348,37 +346,6 @@ namespace WebAPI.Migrations
                     b.HasIndex("FaturaId");
 
                     b.ToTable("FaturaArtikujt");
-                });
-
-            modelBuilder.Entity("WebAPI.Models.Klienti", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Adresa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmriKompanise")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NRB")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NUI")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefoni")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Klientet");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Perdoruesi", b =>
@@ -456,6 +423,22 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SiteSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adresa = "Prishtine, Kosove",
+                            Email = "contact@template.com",
+                            Facebook = "#",
+                            GitHub = "#",
+                            Instagram = "#",
+                            LinkedIn = "#",
+                            Pershkrimi = "A premium starting point for your next big idea. Built with efficiency, scalability, and modern best practices in mind.",
+                            SiteEmri = "Project Template",
+                            Telefoni = "+383 44 000 000",
+                            Twitter = "#"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.TeDhenatPerdoruesit", b =>
@@ -541,15 +524,6 @@ namespace WebAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebAPI.Models.Fatura", b =>
-                {
-                    b.HasOne("WebAPI.Models.Klienti", "Klienti")
-                        .WithMany()
-                        .HasForeignKey("KlientiId");
-
-                    b.Navigation("Klienti");
                 });
 
             modelBuilder.Entity("WebAPI.Models.FaturaArtikujtItem", b =>

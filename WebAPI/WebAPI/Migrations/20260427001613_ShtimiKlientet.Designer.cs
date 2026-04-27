@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
@@ -11,9 +12,11 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260427001613_ShtimiKlientet")]
+    partial class ShtimiKlientet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,9 +271,6 @@ namespace WebAPI.Migrations
                     b.Property<string>("KlientiEmri")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("KlientiId")
-                        .HasColumnType("int");
-
                     b.Property<string>("KlientiTelefoni")
                         .HasColumnType("nvarchar(max)");
 
@@ -299,8 +299,6 @@ namespace WebAPI.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KlientiId");
 
                     b.ToTable("Faturat");
                 });
@@ -456,6 +454,22 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SiteSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adresa = "Prishtine, Kosove",
+                            Email = "contact@template.com",
+                            Facebook = "#",
+                            GitHub = "#",
+                            Instagram = "#",
+                            LinkedIn = "#",
+                            Pershkrimi = "A premium starting point for your next big idea. Built with efficiency, scalability, and modern best practices in mind.",
+                            SiteEmri = "Project Template",
+                            Telefoni = "+383 44 000 000",
+                            Twitter = "#"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.TeDhenatPerdoruesit", b =>
@@ -541,15 +555,6 @@ namespace WebAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebAPI.Models.Fatura", b =>
-                {
-                    b.HasOne("WebAPI.Models.Klienti", "Klienti")
-                        .WithMany()
-                        .HasForeignKey("KlientiId");
-
-                    b.Navigation("Klienti");
                 });
 
             modelBuilder.Entity("WebAPI.Models.FaturaArtikujtItem", b =>

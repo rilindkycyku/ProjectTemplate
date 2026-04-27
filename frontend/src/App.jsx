@@ -7,8 +7,14 @@ import Dashboard from "./Pages/Dashboard";
 import AdminDashboard from "./Components/Dashboard/AdminDashboard";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
+
 import ProtectedRoute from "./Components/layout/ProtectedRoute";
 import ScrollToTop from "./Components/layout/ScrollToTop";
+import FaturatPage from "./Pages/Faturat";
+import BankatPage from "./Pages/Bankat";
+import KlientetPage from "./Pages/Klientet";
+import NukKeniAkses from "./Components/ErrorPages/403";
+import NukUGjet from "./Components/ErrorPages/404";
 import "./App.css";
 
 function App() {
@@ -37,6 +43,24 @@ function App() {
             </ProtectedRoute>
           } 
         />
+        <Route path="/Faturat" element={
+            <ProtectedRoute requiredRole={['Admin', 'Menaxher']}>
+              <FaturatPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/Bankat" element={
+            <ProtectedRoute requiredRole={['Admin']}>
+              <BankatPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/Klientet" element={
+            <ProtectedRoute requiredRole={['Admin']}>
+              <KlientetPage />
+            </ProtectedRoute>
+          } />
+        {/* Error pages */}
+        <Route path="/403" element={<NukKeniAkses />} />
+        <Route path="*" element={<NukUGjet />} />
       </Routes>
     </div>
   );

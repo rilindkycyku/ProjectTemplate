@@ -10,9 +10,9 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
     const { settings } = useSiteSettings();
 
-    const logoSrc = settings?.logo
+    const logoSrc = (settings?.logo && settings.logo !== "PaLogo.png")
         ? `/img/web/${settings.logo}`
-        : "/img/web/PaLogo.png";
+        : null;
 
     const socialLinks = [
         { href: settings?.facebook, icon: faFacebook, label: "Facebook",  hoverClass: "hover:bg-primary hover:text-white" },
