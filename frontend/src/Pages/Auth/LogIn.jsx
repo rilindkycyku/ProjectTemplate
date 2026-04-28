@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import NavBar from "../Components/layout/NavBar";
-import Footer from "../Components/layout/Footer";
-import apiClient from "../api/apiClient";
-import { useAuth } from "../Context/AuthContext";
-import Mesazhi from "../Components/layout/Mesazhi";
+import NavBar from "../../Components/layout/NavBar";
+import Footer from "../../Components/layout/Footer";
+import apiClient from "../../api/apiClient";
+import { useAuth } from "../../Context/AuthContext";
+import Mesazhi from "../../Components/layout/Mesazhi";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

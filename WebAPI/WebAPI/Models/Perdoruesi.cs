@@ -15,7 +15,7 @@ public partial class Perdoruesi
     public string? Username { get; set; }
     public string? AspNetUserId { get; set; }
     [ForeignKey("AspNetUserId")]
-    public IdentityUser AspNetUser { get; set; }
+    public IdentityUser? AspNetUser { get; set; }
 
     public virtual TeDhenatPerdoruesit? TeDhenatPerdoruesit { get; set; }
 }

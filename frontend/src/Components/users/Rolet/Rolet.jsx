@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../../../api/apiClient";
 import CustomModal from "../../layout/CustomModal";
-import ShtoRolin from "./ShtoRolin";
 import Mesazhi from "../../layout/Mesazhi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus, faLayerGroup } from '@fortawesome/free-solid-svg-icons';

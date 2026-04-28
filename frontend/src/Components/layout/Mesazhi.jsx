@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircleExclamation, faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,8 +18,8 @@ function Mesazhi(props) {
         };
     }, []);
 
-    return (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+    return createPortal(
+        <div className="fixed inset-0 z-[100001] flex items-center justify-center p-4">
             {/* Backdrop */}
             <div 
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
@@ -49,8 +50,9 @@ function Mesazhi(props) {
                     Continue
                 </button>
             </div>
-        </div>
-    )
+        </div>,
+        document.body
+    );
 }
 
 export default Mesazhi;

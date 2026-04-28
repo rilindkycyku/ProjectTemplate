@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Models;
+using WebAPI.Services;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers;
 
@@ -12,11 +14,15 @@ namespace WebAPI.Controllers;
 public class KlientiController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IAdminLogService _adminLogService;
 
-    public KlientiController(ApplicationDbContext context)
+    public KlientiController(ApplicationDbContext context, IAdminLogService adminLogService)
     {
         _context = context;
+        _adminLogService = adminLogService;
     }
+
+    private string GetUserId() => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
     [HttpGet("ShfaqKlientet")]
     public async Task<IActionResult> ShfaqKlientet()
@@ -29,6 +35,13 @@ public class KlientiController : ControllerBase
     {
         await _context.Klientet.AddAsync(klienti);
         await _context.SaveChangesAsync();
+
+        var userId = GetUserId();
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await _adminLogService.LogAsync(userId, "Shto", "Klientet", klienti.Id.ToString(), $"U shtua klienti: {klienti.EmriKompanise}");
+        }
+
         return Ok(klienti);
     }
 
@@ -46,6 +59,13 @@ public class KlientiController : ControllerBase
         klienti.NRB = updated.NRB;
 
         await _context.SaveChangesAsync();
+
+        var userId = GetUserId();
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await _adminLogService.LogAsync(userId, "Ndrysho", "Klientet", klienti.Id.ToString(), $"U ndryshua klienti: {klienti.EmriKompanise}");
+        }
+
         return Ok(klienti);
     }
 
@@ -57,6 +77,13 @@ public class KlientiController : ControllerBase
 
         _context.Klientet.Remove(klienti);
         await _context.SaveChangesAsync();
+
+        var userId = GetUserId();
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await _adminLogService.LogAsync(userId, "Fshij", "Klientet", id.ToString(), $"U fshi klienti: {klienti.EmriKompanise}");
+        }
+
         return Ok(new { result = true });
     }
 }

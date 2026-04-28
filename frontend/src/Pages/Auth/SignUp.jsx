@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import NavBar from "../Components/layout/NavBar";
-import Footer from "../Components/layout/Footer";
-import apiClient from "../api/apiClient";
+import NavBar from "../../Components/layout/NavBar";
+import Footer from "../../Components/layout/Footer";
+import apiClient from "../../api/apiClient";
+import { useAuth } from "../../Context/AuthContext";
+import Mesazhi from "../../Components/layout/Mesazhi";
 import Col from "react-bootstrap/Col";
 import { Row } from "react-bootstrap";
-import Mesazhi from "../Components/layout/Mesazhi";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faIdCard, faMapLocationDot } from "@fortawesome/free-solid-svg-icons";

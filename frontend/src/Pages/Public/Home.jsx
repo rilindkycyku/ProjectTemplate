@@ -1,14 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import NavBar from "../Components/layout/NavBar";
-import Footer from "../Components/layout/Footer";
+import NavBar from "../../Components/layout/NavBar";
+import Footer from "../../Components/layout/Footer";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocket, faShieldHalved, faBolt, faCode, faDatabase, faLayerGroup, faServer, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     return (
-        <div className="bg-bg-darker min-h-screen flex flex-col">
+        <div className="bg-bg-darker min-h-screen flex flex-col w-full overflow-x-hidden">
             <Helmet>
                 <title>Home | Project Template</title>
                 <meta name="description" content="A clean, modern, and pre-configured boilerplate for your ASP.NET Core and React applications." />
@@ -16,17 +16,17 @@ function Home() {
             
             <NavBar />
             
-            <main>
+            <main className="flex-1 overflow-x-hidden">
                 {/* Hero Section */}
                 <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_20%_30%,_rgba(99,102,241,0.2)_0%,_transparent_55%),radial-gradient(ellipse_at_80%_70%,_rgba(139,92,246,0.15)_0%,_transparent_55%),radial-gradient(ellipse_at_50%_50%,_rgba(236,72,153,0.06)_0%,_transparent_70%),var(--color-bg-darker)]">
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,rgba(0,0,0,0.6)_0%,transparent_70%)] pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-t from-bg-darker to-transparent pointer-events-none"></div>
                     
-                    <div className="text-center max-w-[860px] px-8 z-10 relative animate-[fadeInUp_0.8s_ease-out_both]">
+                    <div className="text-center max-w-[860px] px-6 md:px-8 z-10 relative animate-[fadeInUp_0.8s_ease-out_both]">
                         <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/25 rounded-full px-4 py-1.5 text-sm font-semibold text-primary-light mb-8 tracking-wide">
                             <span className="w-1.5 h-1.5 bg-primary-light rounded-full animate-[pulse-ring_2s_infinite]"></span> React 19 + ASP.NET Core 6 Ready
                         </div>
-                        <h1 className="text-[clamp(2.8rem,7vw,5rem)] leading-[1.08] mb-6 tracking-[-0.04em] font-black">
+                        <h1 className="text-[clamp(1.5rem,8.5vw,4.5rem)] leading-[1.15] mb-6 tracking-[-0.04em] font-black break-words overflow-hidden">
                             Build Faster With Our <br />
                             <span className="bg-gradient-to-br from-primary-light via-accent-light to-secondary-light bg-clip-text text-transparent">Premium Template</span>
                         </h1>
@@ -60,7 +60,7 @@ function Home() {
                 </section>
 
                 {/* Features Section */}
-                <section className="py-24 px-8 max-w-[1200px] mx-auto w-full">
+                <section className="py-16 md:py-24 px-6 md:px-8 max-w-[1200px] mx-auto w-full">
                     <div className="text-center mb-16" data-aos="fade-up">
                         <span className="section-title">Features</span>
                         <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] mb-4 tracking-[-0.03em]">Everything you need to scale</h2>
@@ -69,8 +69,8 @@ function Home() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
-                        <div className="glass-card p-10 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="glass-card p-8 md:p-10 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
                             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-6 bg-primary/10 border border-primary/20 text-primary-light">
                                 <FontAwesomeIcon icon={faRocket} />
@@ -79,16 +79,16 @@ function Home() {
                             <p className="text-text-muted leading-relaxed text-sm">Clone the repository and run the development servers. No complex configuration steps needed to get your project up and running.</p>
                         </div>
 
-                        <div className="glass-card p-10 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                        <div className="glass-card p-8 md:p-10 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
                             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-teal to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-6 bg-teal/10 border border-teal/20 text-teal-400">
+                            <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-6 bg-primary/10 border border-primary/20 text-primary-light">
                                 <FontAwesomeIcon icon={faShieldHalved} />
                             </div>
                             <h3 className="text-xl mb-3 font-bold">Secure Authentication</h3>
                             <p className="text-text-muted leading-relaxed text-sm">Built-in ASP.NET Core Identity with JWT tokens and secure, role-based access control protecting your API endpoints.</p>
                         </div>
 
-                        <div className="glass-card p-10 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+                        <div className="glass-card p-8 md:p-10 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
                             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-6 bg-amber/10 border border-amber/20 text-amber-400">
                                 <FontAwesomeIcon icon={faBolt} />

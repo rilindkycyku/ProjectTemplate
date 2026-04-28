@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit, faTrash, faUniversity } from "@fortawesome/free-solid-svg-icons";
-import apiClient from "../api/apiClient";
-import CustomTable from "../Components/layout/CustomTable";
-import CustomSelect from "../Components/layout/CustomSelect";
+import apiClient from "../../api/apiClient";
+import CustomTable from "../../Components/layout/CustomTable";
+import CustomSelect from "../../Components/layout/CustomSelect";
+import CustomModal from "../../Components/layout/CustomModal";
 
 export default function Bankat() {
     const [bankat, setBankat] = useState([]);
@@ -161,80 +162,71 @@ export default function Bankat() {
             </div>
 
             {/* Modal */}
-            {showModal && (
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                    <div className="glass-card w-full max-w-lg p-6 animate-[pulse-ring_0.3s_ease-out]">
-                        <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xl font-bold text-white">
-                                {editingBank ? "Ndrysho Llogarinë" : "Shto Llogari të Re"}
-                            </h2>
-                            <button onClick={handleCloseModal} className="text-text-muted hover:text-white transition-colors text-xl leading-none">
-                                &times;
-                            </button>
-                        </div>
-
-                        <form onSubmit={handleSave} className="flex flex-col gap-4">
-                            <div className="form-group-premium mb-0">
-                                <label>Emri i Bankës</label>
-                                <input 
-                                    name="emriBankes" 
-                                    value={form.emriBankes} 
-                                    onChange={handleChange} 
-                                    required 
-                                    className="form-control-premium" 
-                                    placeholder="p.sh. Raiffeisen Bank, TEB..." 
-                                />
-                            </div>
-
-                            <div className="form-group-premium mb-0">
-                                <label>Numri i Llogarisë</label>
-                                <input 
-                                    name="nrLlogaris" 
-                                    value={form.nrLlogaris} 
-                                    onChange={handleChange} 
-                                    required 
-                                    className="form-control-premium" 
-                                    placeholder="p.sh. 15000000000000" 
-                                />
-                            </div>
-
-                            <div className="form-group-premium mb-0">
-                                <label>Valuta</label>
-                                <CustomSelect 
-                                    options={[
-                                        { value: "EUR", label: "EUR (€)" },
-                                        { value: "USD", label: "USD ($)" },
-                                        { value: "CHF", label: "CHF" }
-                                    ]}
-                                    value={{ value: form.valuta, label: form.valuta === "EUR" ? "EUR (€)" : form.valuta === "USD" ? "USD ($)" : "CHF" }}
-                                    onChange={(option) => handleChange({ target: { name: "valuta", value: option.value }})}
-                                />
-                            </div>
-
-                            <div className="flex items-center gap-3 mt-2 mb-4 bg-white/5 p-4 rounded-lg border border-white/10">
-                                <input 
-                                    type="checkbox" 
-                                    name="isActive" 
-                                    checked={form.isActive} 
-                                    onChange={handleChange} 
-                                    id="isActiveCheck"
-                                    className="w-5 h-5 accent-primary cursor-pointer"
-                                />
-                                <label htmlFor="isActiveCheck" className="text-white cursor-pointer font-medium mb-0">
-                                    Llogari Aktive <span className="text-text-muted text-xs font-normal block">Llogaritë jo-aktive nuk do të shfaqen në faturat e reja.</span>
-                                </label>
-                            </div>
-
-                            <div className="flex justify-end gap-3 mt-4">
-                                <button type="button" onClick={handleCloseModal} className="btn-outline">Anulo</button>
-                                <button type="submit" disabled={saving} className="btn-premium min-w-[120px]">
-                                    {saving ? "Duke ruajtur..." : "Ruaj"}
-                                </button>
-                            </div>
-                        </form>
+            <CustomModal
+                show={showModal}
+                onHide={handleCloseModal}
+                title={editingBank ? "Ndrysho Llogarinë" : "Shto Llogari të Re"}
+            >
+                <form onSubmit={handleSave} className="flex flex-col gap-4">
+                    <div className="form-group-premium mb-0">
+                        <label>Emri i Bankës</label>
+                        <input 
+                            name="emriBankes" 
+                            value={form.emriBankes} 
+                            onChange={handleChange} 
+                            required 
+                            className="form-control-premium" 
+                            placeholder="p.sh. Raiffeisen Bank, TEB..." 
+                        />
                     </div>
-                </div>
-            )}
+
+                    <div className="form-group-premium mb-0">
+                        <label>Numri i Llogarisë</label>
+                        <input 
+                            name="nrLlogaris" 
+                            value={form.nrLlogaris} 
+                            onChange={handleChange} 
+                            required 
+                            className="form-control-premium" 
+                            placeholder="p.sh. 15000000000000" 
+                        />
+                    </div>
+
+                    <div className="form-group-premium mb-0">
+                        <label>Valuta</label>
+                        <CustomSelect 
+                            options={[
+                                { value: "EUR", label: "EUR (€)" },
+                                { value: "USD", label: "USD ($)" },
+                                { value: "CHF", label: "CHF" }
+                            ]}
+                            value={{ value: form.valuta, label: form.valuta === "EUR" ? "EUR (€)" : form.valuta === "USD" ? "USD ($)" : "CHF" }}
+                            onChange={(option) => handleChange({ target: { name: "valuta", value: option.value }})}
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-3 mt-2 mb-4 bg-white/5 p-4 rounded-lg border border-white/10">
+                        <input 
+                            type="checkbox" 
+                            name="isActive" 
+                            checked={form.isActive} 
+                            onChange={handleChange} 
+                            id="isActiveCheck"
+                            className="w-5 h-5 accent-primary cursor-pointer"
+                        />
+                        <label htmlFor="isActiveCheck" className="text-white cursor-pointer font-medium mb-0">
+                            Llogari Aktive <span className="text-text-muted text-xs font-normal block">Llogaritë jo-aktive nuk do të shfaqen në faturat e reja.</span>
+                        </label>
+                    </div>
+
+                    <div className="flex justify-end gap-3 mt-4">
+                        <button type="button" onClick={handleCloseModal} className="btn-outline">Anulo</button>
+                        <button type="submit" disabled={saving} className="btn-premium min-w-[120px]">
+                            {saving ? "Duke ruajtur..." : "Ruaj"}
+                        </button>
+                    </div>
+                </form>
+            </CustomModal>
         </div>
     );
 }

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Models;
+using WebAPI.Services;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers;
 
@@ -12,11 +14,15 @@ namespace WebAPI.Controllers;
 public class FaturaController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IAdminLogService _adminLogService;
 
-    public FaturaController(ApplicationDbContext context)
+    public FaturaController(ApplicationDbContext context, IAdminLogService adminLogService)
     {
         _context = context;
+        _adminLogService = adminLogService;
     }
+
+    private string GetUserId() => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
     // ─────────────────────────────────────────────────────────────────────────
     // FATURAT (Invoice headers)
@@ -119,6 +125,12 @@ public class FaturaController : ControllerBase
         await _context.Faturat.AddAsync(fatura);
         await _context.SaveChangesAsync();
 
+        var userId = GetUserId();
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await _adminLogService.LogAsync(userId, "Shto", "Faturat", fatura.Id.ToString(), $"U shtua fatura: {fatura.NrFatures}");
+        }
+
         return Ok(fatura);
     }
 
@@ -137,6 +149,12 @@ public class FaturaController : ControllerBase
         _context.FaturaArtikujt.RemoveRange(fatura.Artikujt);
         _context.Faturat.Remove(fatura);
         await _context.SaveChangesAsync();
+
+        var userId = GetUserId();
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await _adminLogService.LogAsync(userId, "Fshij", "Faturat", id.ToString(), $"U fshi fatura: {fatura.NrFatures}");
+        }
 
         return Ok(new { result = true });
     }

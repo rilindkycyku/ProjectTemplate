@@ -36,7 +36,7 @@ namespace WebAPI.Migrations
             migrationBuilder.InsertData(
                 table: "SiteSettings",
                 columns: new[] { "Id", "Adresa", "Email", "Facebook", "GitHub", "Instagram", "LinkedIn", "Logo", "Pershkrimi", "SiteEmri", "Telefoni", "Twitter" },
-                values: new object[] { 1, "Prishtine, Kosove", "contact@template.com", "#", "#", "#", "#", null, "A premium starting point for your next big idea. Built with efficiency, scalability, and modern best practices in mind.", "Project Template", "+383 44 000 000", "#" });
+                values: new object[] { 1, "Prishtine, Kosove", "contact@template.com", "#", "#", "#", "#", "PaLogo.png", "A premium starting point for your next big idea. Built with efficiency, scalability, and modern best practices in mind.", "Project Template", "+383 44 000 000", "#" });
         }
 
         /// <inheritdoc />

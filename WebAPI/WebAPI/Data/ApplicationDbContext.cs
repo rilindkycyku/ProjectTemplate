@@ -21,10 +21,9 @@ public partial class ApplicationDbContext : IdentityDbContext
     public DbSet<Perdoruesi> Perdoruesi { get; set; }
     public DbSet<TeDhenatPerdoruesit> TeDhenatPerdoruesit { get; set; }
     public DbSet<SiteSettings> SiteSettings { get; set; }
-
-    // Invoice module
     public DbSet<Fatura> Faturat { get; set; }
     public DbSet<FaturaArtikujtItem> FaturaArtikujt { get; set; }
     public DbSet<Banka> Bankat { get; set; }
     public DbSet<Klienti> Klientet { get; set; }
+    public DbSet<AdminLogs> AdminLogs { get; set; }
 }

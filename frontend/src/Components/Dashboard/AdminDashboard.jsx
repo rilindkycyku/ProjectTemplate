@@ -8,15 +8,25 @@ import Footer from "../layout/Footer";
 import TabelaEPerdoruesve from "../users/TabelaEPerdoruesve";
 import Statistika from "./Statistika";
 import CilesimiSajtit from "./CilesimiSajtit";
+import Gjurmimi from "../../Pages/Dashboard/Gjurmimi";
+import Faturat from "../../Pages/Dashboard/Faturat";
+import Bankat from "../../Pages/Dashboard/Bankat";
+import Klientet from "../../Pages/Dashboard/Klientet";
+import RoleCheck from "../KontrolliAksesit/RoleCheck";
+import { useAuth } from "../../Context/AuthContext";
 
 const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = useState('users');
+  const { user } = useAuth();
+  const isAdmin = user?.role?.includes('Admin');
+  
+  const [activeTab, setActiveTab] = useState(isAdmin ? 'users' : 'faturat');
   const [expandedCategories, setExpandedCategories] = useState({
     identity: true,
     system: true,
     siteConfig: true,
     modules: true,
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   const navigate = useNavigate();
 
@@ -33,11 +43,23 @@ const AdminDashboard = () => {
       <NavBar />
       <div className="orb-bg"></div>
 
-      <main className="flex-1 max-w-[1600px] w-full mx-auto py-12 px-6 relative z-10 flex flex-col">
-        <div className="glass-card w-full flex relative flex-1 shadow-[0_0_50px_rgba(0,0,0,0.2)] border border-white/10 rounded-2xl overflow-hidden min-h-[750px]">
+      <main className="flex-1 max-w-[1600px] w-full mx-auto py-6 px-4 md:py-12 md:px-6 relative z-10 flex flex-col">
+        <div className="glass-card w-full flex relative flex-1 shadow-[0_0_50px_rgba(0,0,0,0.2)] border border-white/10 rounded-2xl overflow-hidden min-h-[600px] md:min-h-[750px]">
           
+          {/* Mobile Sidebar Toggle */}
+          <button 
+            className="md:hidden fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-white shadow-2xl z-[100] flex items-center justify-center text-xl border-2 border-white/20"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <FontAwesomeIcon icon={faCogs} className={sidebarOpen ? "rotate-90 transition-transform" : "transition-transform"} />
+          </button>
+
           {/* Sidebar SubNav */}
-          <aside className="w-72 bg-black/20 border-r border-white/10 flex flex-col z-10 shadow-xl flex-shrink-0">
+          <aside className={`
+            fixed inset-y-0 left-0 w-72 bg-[#0a0f1d] z-[90] transition-transform duration-300 transform 
+            md:relative md:translate-x-0 md:bg-black/20 border-r border-white/10 flex flex-col shadow-xl flex-shrink-0
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          `}>
             <div className="p-6 border-b border-white/10 bg-white/5">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xl shadow-[0_4px_15px_rgba(99,102,241,0.3)]">
@@ -59,7 +81,8 @@ const AdminDashboard = () => {
             <div className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-white/10">
               
               {/* Category: Identity & Access */}
-              <div className="mb-4">
+              <RoleCheck roletELejuara={["Admin"]}>
+                <div className="mb-4">
                 <button 
                   className="w-full flex items-center justify-between text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.1em] mb-2 px-2 hover:text-white transition-colors"
                   onClick={() => toggleCategory('identity')}
@@ -76,7 +99,8 @@ const AdminDashboard = () => {
                     <FontAwesomeIcon icon={faUsers} className="w-4" /> User Directory
                   </button>
                 </div>
-              </div>
+                </div>
+              </RoleCheck>
 
               {/* Category: System & Performance */}
               <div className="mb-4 mt-6">
@@ -89,23 +113,28 @@ const AdminDashboard = () => {
                 </button>
                 
                 <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-1 ${expandedCategories.system ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <button 
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'stats' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                    onClick={() => setActiveTab('stats')}
-                  >
-                    <FontAwesomeIcon icon={faChartLine} className="w-4" /> System Analytics
-                  </button>
-                  <button 
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent`}
-                    onClick={() => alert('Future feature: System Logs & Databases')}
-                  >
-                    <FontAwesomeIcon icon={faDatabase} className="w-4" /> Backup & Logs
-                  </button>
+                  <RoleCheck roletELejuara={["Admin", "Menaxher"]}>
+                    <button 
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'stats' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
+                      onClick={() => setActiveTab('stats')}
+                    >
+                      <FontAwesomeIcon icon={faChartLine} className="w-4" /> System Analytics
+                    </button>
+                  </RoleCheck>
+                  <RoleCheck roletELejuara={["Admin"]}>
+                    <button 
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'logs' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
+                      onClick={() => setActiveTab('logs')}
+                    >
+                      <FontAwesomeIcon icon={faDatabase} className="w-4" /> System Logs
+                    </button>
+                  </RoleCheck>
                 </div>
               </div>
 
               {/* Category: Site Configuration */}
-              <div className="mb-4 mt-6">
+              <RoleCheck roletELejuara={["Admin"]}>
+                <div className="mb-4 mt-6">
                 <button
                   className="w-full flex items-center justify-between text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.1em] mb-2 px-2 hover:text-white transition-colors"
                   onClick={() => toggleCategory('siteConfig')}
@@ -121,11 +150,13 @@ const AdminDashboard = () => {
                   >
                     <FontAwesomeIcon icon={faGlobe} className="w-4" /> Site Settings
                   </button>
+                  </div>
                 </div>
-              </div>
+              </RoleCheck>
 
               {/* Category: Modules */}
-              <div className="mb-4 mt-6">
+              <RoleCheck roletELejuara={["Admin", "Menaxher"]}>
+                <div className="mb-4 mt-6">
                 <button
                   className="w-full flex items-center justify-between text-[0.75rem] font-bold text-text-muted uppercase tracking-[0.1em] mb-2 px-2 hover:text-white transition-colors"
                   onClick={() => toggleCategory('modules')}
@@ -134,27 +165,28 @@ const AdminDashboard = () => {
                   <FontAwesomeIcon icon={faChevronRight} className={`transition-transform duration-300 ${expandedCategories.modules ? 'rotate-90' : ''}`} />
                 </button>
 
-                <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-1 ${expandedCategories.modules ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-1 ${expandedCategories.modules ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
                   <button
-                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent"
-                    onClick={() => navigate('/Faturat')}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'faturat' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
+                    onClick={() => setActiveTab('faturat')}
                   >
                     <FontAwesomeIcon icon={faFileInvoiceDollar} className="w-4" /> Faturat
                   </button>
                   <button
-                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent"
-                    onClick={() => navigate('/Bankat')}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'bankat' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
+                    onClick={() => setActiveTab('bankat')}
                   >
                     <FontAwesomeIcon icon={faUniversity} className="w-4" /> Llogaritë Bankare
                   </button>
                   <button
-                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted hover:bg-white/5 hover:text-white border border-transparent"
-                    onClick={() => navigate('/Klientet')}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'klientet' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
+                    onClick={() => setActiveTab('klientet')}
                   >
                     <FontAwesomeIcon icon={faUsers} className="w-4" /> Klientët
                   </button>
                 </div>
               </div>
+              </RoleCheck>
 
             </div>
           </aside>
@@ -162,20 +194,33 @@ const AdminDashboard = () => {
           {/* Main Content Area */}
           <div className="flex-1 flex flex-col overflow-hidden bg-bg-darker/50">
             {/* Context Header */}
-            <div className="h-20 border-b border-white/5 bg-white/[0.02] flex items-center px-8 shadow-sm">
-              <h3 className="text-xl font-bold text-white m-0">
+            <div className="h-16 md:h-20 border-b border-white/5 bg-white/[0.02] flex items-center px-4 md:px-8 shadow-sm">
+              <h3 className="text-lg md:text-xl font-bold text-white m-0">
                 {activeTab === 'users' ? 'User Directory Management'
                   : activeTab === 'stats' ? 'System Statistics & Health'
                   : activeTab === 'siteSettings' ? 'Site Configuration'
+                  : activeTab === 'logs' ? 'System Tracking Logs'
+                  : activeTab === 'faturat' ? 'Menaxhimi i Faturave'
+                  : activeTab === 'bankat' ? 'Llogaritë Bankare'
+                  : activeTab === 'klientet' ? 'Lista e Klientëve'
                   : 'Admin Area'}
               </h3>
             </div>
 
             {/* Component Content */}
-            <div className="flex-1 overflow-y-auto p-8 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-              {activeTab === 'users' && <TabelaEPerdoruesve />}
-              {activeTab === 'stats' && <Statistika />}
-              {activeTab === 'siteSettings' && <CilesimiSajtit />}
+            <div className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+              <RoleCheck roletELejuara={["Admin"]}>
+                {activeTab === 'users' && <div onClick={() => setSidebarOpen(false)}><TabelaEPerdoruesve /></div>}
+                {activeTab === 'siteSettings' && <CilesimiSajtit />}
+                {activeTab === 'logs' && <Gjurmimi />}
+              </RoleCheck>
+              
+              <RoleCheck roletELejuara={["Admin", "Menaxher"]}>
+                {activeTab === 'stats' && <div onClick={() => setSidebarOpen(false)}><Statistika /></div>}
+                {activeTab === 'faturat' && <div onClick={() => setSidebarOpen(false)}><Faturat /></div>}
+                {activeTab === 'bankat' && <div onClick={() => setSidebarOpen(false)}><Bankat /></div>}
+                {activeTab === 'klientet' && <div onClick={() => setSidebarOpen(false)}><Klientet /></div>}
+              </RoleCheck>
             </div>
           </div>
 

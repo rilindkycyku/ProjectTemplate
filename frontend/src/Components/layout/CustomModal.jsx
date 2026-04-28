@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "./Styles/ModalDheTabela.css";
 import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -47,7 +48,7 @@ const CustomModal = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 flex items-center justify-center p-4"
+      className="fixed inset-0 flex items-center justify-center p-2 sm:p-4"
       style={{ zIndex: 99999 }}
     >
       {/* Backdrop */}
@@ -58,14 +59,14 @@ const CustomModal = ({
 
       {/* Dialog */}
       <div
-        className={`relative w-full ${sizeClass} bg-[#0d1424] border border-white/10 rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col max-h-[90vh] animate-[modal-in_0.2s_ease-out]`}
+        className={`relative w-full ${sizeClass} bg-[#0d1424] border border-white/10 rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col max-h-[95vh] md:max-h-[90vh] animate-[modal-in_0.2s_ease-out]`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         {(title || closeButton) && (
-          <div className="flex items-center justify-between p-6 pb-4 border-b border-white/5 shrink-0">
+          <div className="flex items-center justify-between p-4 md:p-6 pb-2 md:pb-4 border-b border-white/5 shrink-0">
             {title && (
-              <h5 className="text-white font-bold text-lg m-0 flex items-center gap-2">
+              <h5 className="text-white font-bold text-base md:text-lg m-0 flex items-center gap-2">
                 {title}
               </h5>
             )}

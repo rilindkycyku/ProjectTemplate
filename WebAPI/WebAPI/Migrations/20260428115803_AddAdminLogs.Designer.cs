@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
@@ -11,9 +12,11 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260428115803_AddAdminLogs")]
+    partial class AddAdminLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,80 +254,6 @@ namespace WebAPI.Migrations
                     b.HasIndex("StafiId");
 
                     b.ToTable("AdminLogs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Detaje = "Sistemi i gjurmimit u inicializua automatikisht.",
-                            Entiteti = "Sistemi",
-                            EntitetiId = "0",
-                            Koha = new DateTime(2024, 1, 1, 8, 0, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Shto"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Detaje = "U shtua përdoruesi fillestar (Admin).",
-                            Entiteti = "Perdoruesit",
-                            EntitetiId = "1",
-                            Koha = new DateTime(2024, 1, 2, 9, 15, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Shto"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Detaje = "U përditësuan cilësimet bazë të platformës.",
-                            Entiteti = "Cilesimet e Sajtit",
-                            EntitetiId = "1",
-                            Koha = new DateTime(2024, 1, 3, 10, 30, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Ndrysho"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Detaje = "U shtua klienti: Klienti Template Sh.p.k",
-                            Entiteti = "Klientet",
-                            EntitetiId = "1",
-                            Koha = new DateTime(2024, 1, 4, 11, 45, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Shto"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Detaje = "U shtua banka: Banka Kryesore",
-                            Entiteti = "Bankat",
-                            EntitetiId = "1",
-                            Koha = new DateTime(2024, 1, 5, 13, 20, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Shto"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Detaje = "U shtua fatura: FAT-060124-0001",
-                            Entiteti = "Faturat",
-                            EntitetiId = "1",
-                            Koha = new DateTime(2024, 1, 6, 14, 10, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Shto"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Detaje = "U shtua klienti: Partneri ABC",
-                            Entiteti = "Klientet",
-                            EntitetiId = "2",
-                            Koha = new DateTime(2024, 1, 7, 9, 5, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Shto"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Detaje = "U shtua fatura: FAT-080124-0002",
-                            Entiteti = "Faturat",
-                            EntitetiId = "2",
-                            Koha = new DateTime(2024, 1, 8, 16, 40, 0, 0, DateTimeKind.Utc),
-                            Veprimi = "Shto"
-                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.Banka", b =>

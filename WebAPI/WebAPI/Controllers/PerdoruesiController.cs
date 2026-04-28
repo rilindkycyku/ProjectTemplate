@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Models;
 using WebAPI.Data;
+using WebAPI.Services;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers
 {
@@ -15,14 +17,19 @@ namespace WebAPI.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IAdminLogService _adminLogService;
 
         public PerdoruesiController(
             ApplicationDbContext context,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IAdminLogService adminLogService)
         {
             _context = context;
             _userManager = userManager;
+            _adminLogService = adminLogService;
         }
+
+        private string GetUserId() => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         [Authorize(Roles = "Admin, Menaxher")]
         [HttpGet]
@@ -104,29 +111,38 @@ namespace WebAPI.Controllers
 
             var teDhenatUser = await _context.TeDhenatPerdoruesit.FirstOrDefaultAsync(x => x.UserId == id);
 
-            if (!p.TeDhenatPerdoruesit.Qyteti.IsNullOrEmpty())
+            if (teDhenatUser != null && p.TeDhenatPerdoruesit != null)
             {
-                teDhenatUser.Qyteti = p.TeDhenatPerdoruesit.Qyteti;
-            }
-            if (!p.TeDhenatPerdoruesit.Shteti.IsNullOrEmpty())
-            {
-                teDhenatUser.Shteti = p.TeDhenatPerdoruesit.Shteti;
-            }
-            if (!p.TeDhenatPerdoruesit.Adresa.IsNullOrEmpty())
-            {
-                teDhenatUser.Adresa = p.TeDhenatPerdoruesit.Adresa;
-            }
-            if (p.TeDhenatPerdoruesit.ZipKodi > 0)
-            {
-                teDhenatUser.ZipKodi = p.TeDhenatPerdoruesit.ZipKodi;
-            }
-            if (!p.TeDhenatPerdoruesit.NrKontaktit.IsNullOrEmpty())
-            {
-                teDhenatUser.NrKontaktit = p.TeDhenatPerdoruesit.NrKontaktit;
+                if (!p.TeDhenatPerdoruesit.Qyteti.IsNullOrEmpty())
+                {
+                    teDhenatUser.Qyteti = p.TeDhenatPerdoruesit.Qyteti;
+                }
+                if (!p.TeDhenatPerdoruesit.Shteti.IsNullOrEmpty())
+                {
+                    teDhenatUser.Shteti = p.TeDhenatPerdoruesit.Shteti;
+                }
+                if (!p.TeDhenatPerdoruesit.Adresa.IsNullOrEmpty())
+                {
+                    teDhenatUser.Adresa = p.TeDhenatPerdoruesit.Adresa;
+                }
+                if (p.TeDhenatPerdoruesit.ZipKodi > 0)
+                {
+                    teDhenatUser.ZipKodi = p.TeDhenatPerdoruesit.ZipKodi;
+                }
+                if (!p.TeDhenatPerdoruesit.NrKontaktit.IsNullOrEmpty())
+                {
+                    teDhenatUser.NrKontaktit = p.TeDhenatPerdoruesit.NrKontaktit;
+                }
+
+                _context.TeDhenatPerdoruesit.Update(teDhenatUser);
+                await _context.SaveChangesAsync();
             }
 
-            _context.TeDhenatPerdoruesit.Update(teDhenatUser);
-            await _context.SaveChangesAsync();
+            var loggedInUserId = GetUserId();
+            if (!string.IsNullOrEmpty(loggedInUserId))
+            {
+                await _adminLogService.LogAsync(loggedInUserId, "Ndrysho", "Perdoruesit", perdouresi.UserId.ToString(), $"U përditësuan të dhënat për: {perdouresi.Email}");
+            }
 
             return Ok(perdouresi);
         }
@@ -170,6 +186,11 @@ namespace WebAPI.Controllers
                 return BadRequest("Ndodhi nje gabim gjate perditesimit te email");
             }
 
+            var loggedInUserId = GetUserId();
+            if (!string.IsNullOrEmpty(loggedInUserId))
+            {
+                await _adminLogService.LogAsync(loggedInUserId, "Ndrysho", "Perdoruesit", perdoruesi.Id, $"Email u ndryshua nga {emailIVjeter} në {emailIRI}");
+            }
 
             return Ok(emailINdryshuar);
         }
@@ -206,6 +227,11 @@ namespace WebAPI.Controllers
                 return BadRequest("Ndodhi nje gabim gjate perditesimit te fjalekalimit");
             }
 
+            var loggedInUserId = GetUserId();
+            if (!string.IsNullOrEmpty(loggedInUserId))
+            {
+                await _adminLogService.LogAsync(loggedInUserId, "Ndrysho", "Perdoruesit", perdoruesi.Id, $"Fjalëkalimi u ndryshua për: {perdoruesi.Email}");
+            }
 
             return Ok(passwodiINdryshuar);
         }

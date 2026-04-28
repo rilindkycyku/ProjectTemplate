@@ -21,6 +21,7 @@
     "axios": "^1.15.0",
     "bootstrap": "^5.3.8",
     "buffer": "^6.0.3",
+    "date-fns": "^4.1.0",
     "export-from-json": "^1.7.4",
     "font-awesome": "^4.7.0",
     "jsbarcode": "^3.12.3",

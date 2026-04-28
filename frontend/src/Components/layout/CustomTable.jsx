@@ -161,6 +161,7 @@ const ExportModal = ({ data, fileName, onClose }) => {
                   >
                     <span
                       style={{
+                        /* Scrollbar */
                         width: 16,
                         height: 16,
                         borderRadius: 4,
@@ -388,7 +389,7 @@ const CustomTable = ({
 
       {/* ── Table Header ── */}
       {(title || actions || funksionButonShto) && (
-        <div className="flex justify-between items-center bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
           {title ? (
             <h3 className="text-xl font-bold m-0 flex items-center gap-3 text-white">
               {icon && <FontAwesomeIcon icon={icon} className="text-primary-light" />}
@@ -397,11 +398,11 @@ const CustomTable = ({
           ) : (
             <div />
           )}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto mt-4 md:mt-0">
             {exportable && data.length > 0 && (
               <button
                 onClick={() => setShowExport(true)}
-                className="px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-colors flex items-center gap-2"
+                className="flex-1 md:flex-none px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
               >
                 <FontAwesomeIcon icon={faDownload} />
                 Export
@@ -410,7 +411,7 @@ const CustomTable = ({
             {funksionButonShto && (
               <button
                 onClick={() => funksionButonShto()}
-                className="btn-premium py-2 px-5 text-sm flex items-center gap-2"
+                className="flex-1 md:flex-none btn-premium py-2 px-5 text-sm flex items-center justify-center gap-2"
               >
                 <FontAwesomeIcon icon={faPlus} /> Add New
               </button>
@@ -423,9 +424,9 @@ const CustomTable = ({
       {/* ── Filter Bar ── */}
       {searchable && (
         <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div className="flex flex-wrap gap-3 items-end">
+          <div className="flex flex-col md:flex-row flex-wrap gap-3 items-stretch md:items-end">
             {/* Search */}
-            <div className="flex flex-col gap-1 min-w-[180px] flex-1">
+            <div className="flex flex-col gap-1 min-w-[200px] flex-1">
               <label className="text-[0.65rem] font-extrabold uppercase tracking-wider text-text-muted flex items-center gap-1">
                 <FontAwesomeIcon icon={faSearch} className="text-[10px]" /> Search
               </label>
@@ -490,7 +491,7 @@ const CustomTable = ({
             {/* Clear Filters */}
             <button
               onClick={clearFilters}
-              className="px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-text-muted hover:text-red-400 hover:border-red-400/30 transition-colors flex items-center gap-2 self-end"
+              className="px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-text-muted hover:text-red-400 hover:border-red-400/30 transition-colors flex items-center justify-center gap-2 self-stretch md:self-end"
             >
               <FontAwesomeIcon icon={faEraser} />
               Clear
@@ -596,7 +597,7 @@ const CustomTable = ({
 
       {/* ── Pagination ── */}
       {filteredSortedData.length > 0 && (
-        <div className="flex items-center justify-between bg-white/5 border border-white/10 p-4 rounded-xl flex-wrap gap-3">
+        <div className="flex flex-col md:flex-row items-center justify-between bg-white/5 border border-white/10 p-4 rounded-xl gap-4">
           <span className="text-text-muted text-sm">
             Showing{" "}
             <span className="text-white font-medium">{indexOfFirst + 1}</span>{" "}
@@ -614,7 +615,7 @@ const CustomTable = ({
           </span>
 
           {totalPages > 1 && (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center justify-center gap-1 w-full md:w-auto">
               {/* First */}
               <button
                 onClick={() => goToPage(1)}

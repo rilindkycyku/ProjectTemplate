@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit, faTrash, faUsers, faBuilding } from "@fortawesome/free-solid-svg-icons";
-import apiClient from "../api/apiClient";
-import CustomTable from "../Components/layout/CustomTable";
+import apiClient from "../../api/apiClient";
+import CustomTable from "../../Components/layout/CustomTable";
+import CustomModal from "../../Components/layout/CustomModal";
 
 export default function Klientet() {
     const [klientet, setKlientet] = useState([]);
@@ -161,100 +162,96 @@ export default function Klientet() {
             </div>
 
             {/* Modal */}
-            {showModal && (
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                    <div className="glass-card w-full max-w-2xl p-6 animate-[pulse-ring_0.3s_ease-out] overflow-y-auto max-h-[90vh]">
-                        <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                                <FontAwesomeIcon icon={faBuilding} className="text-primary-light" />
-                                {editingKlient ? "Ndrysho Klientin" : "Shto Klient të Ri"}
-                            </h2>
-                            <button onClick={handleCloseModal} className="text-text-muted hover:text-white transition-colors text-xl leading-none">
-                                &times;
-                            </button>
-                        </div>
-
-                        <form onSubmit={handleSave} className="flex flex-col gap-4">
-                            <div className="form-group-premium mb-0">
-                                <label>Emri i Kompanisë</label>
-                                <input 
-                                    name="emriKompanise" 
-                                    value={form.emriKompanise} 
-                                    onChange={handleChange} 
-                                    required 
-                                    className="form-control-premium" 
-                                    placeholder="p.sh. Klienti Test Sh.p.k" 
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="form-group-premium mb-0">
-                                    <label>Email Adresa</label>
-                                    <input 
-                                        name="email" 
-                                        type="email"
-                                        value={form.email} 
-                                        onChange={handleChange} 
-                                        className="form-control-premium" 
-                                        placeholder="p.sh. contact@klienti.com" 
-                                    />
-                                </div>
-                                <div className="form-group-premium mb-0">
-                                    <label>Telefoni</label>
-                                    <input 
-                                        name="telefoni" 
-                                        value={form.telefoni} 
-                                        onChange={handleChange} 
-                                        className="form-control-premium" 
-                                        placeholder="p.sh. +383 44 111 222" 
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="form-group-premium mb-0">
-                                <label>Adresa e plotë</label>
-                                <input 
-                                    name="adresa" 
-                                    value={form.adresa} 
-                                    onChange={handleChange} 
-                                    className="form-control-premium" 
-                                    placeholder="p.sh. Rr. Agim Ramadani, Prishtinë" 
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="form-group-premium mb-0">
-                                    <label>NUI (Numri Unik Identifikues)</label>
-                                    <input 
-                                        name="nui" 
-                                        value={form.nui} 
-                                        onChange={handleChange} 
-                                        className="form-control-premium" 
-                                        placeholder="p.sh. 811000000" 
-                                    />
-                                </div>
-                                <div className="form-group-premium mb-0">
-                                    <label>NRB (Numri i Regjistrimit të Biznesit)</label>
-                                    <input 
-                                        name="nrb" 
-                                        value={form.nrb} 
-                                        onChange={handleChange} 
-                                        className="form-control-premium" 
-                                        placeholder="p.sh. 70000000" 
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/10">
-                                <button type="button" onClick={handleCloseModal} className="btn-outline">Anulo</button>
-                                <button type="submit" disabled={saving} className="btn-premium min-w-[120px]">
-                                    {saving ? "Duke ruajtur..." : "Ruaj Klientin"}
-                                </button>
-                            </div>
-                        </form>
+            <CustomModal
+                show={showModal}
+                onHide={handleCloseModal}
+                size="lg"
+                title={
+                    <div className="flex items-center gap-2">
+                        <FontAwesomeIcon icon={faBuilding} className="text-primary-light" />
+                        {editingKlient ? "Ndrysho Klientin" : "Shto Klient të Ri"}
                     </div>
-                </div>
-            )}
+                }
+            >
+                <form onSubmit={handleSave} className="flex flex-col gap-4">
+                    <div className="form-group-premium mb-0">
+                        <label>Emri i Kompanisë</label>
+                        <input 
+                            name="emriKompanise" 
+                            value={form.emriKompanise} 
+                            onChange={handleChange} 
+                            required 
+                            className="form-control-premium" 
+                            placeholder="p.sh. Klienti Test Sh.p.k" 
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="form-group-premium mb-0">
+                            <label>Email Adresa</label>
+                            <input 
+                                name="email" 
+                                type="email"
+                                value={form.email} 
+                                onChange={handleChange} 
+                                className="form-control-premium" 
+                                placeholder="p.sh. contact@klienti.com" 
+                            />
+                        </div>
+                        <div className="form-group-premium mb-0">
+                            <label>Telefoni</label>
+                            <input 
+                                name="telefoni" 
+                                value={form.telefoni} 
+                                onChange={handleChange} 
+                                className="form-control-premium" 
+                                placeholder="p.sh. +383 44 111 222" 
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group-premium mb-0">
+                        <label>Adresa e plotë</label>
+                        <input 
+                            name="adresa" 
+                            value={form.adresa} 
+                            onChange={handleChange} 
+                            className="form-control-premium" 
+                            placeholder="p.sh. Rr. Agim Ramadani, Prishtinë" 
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="form-group-premium mb-0">
+                            <label>NUI (Numri Unik Identifikues)</label>
+                            <input 
+                                name="nui" 
+                                value={form.nui} 
+                                onChange={handleChange} 
+                                className="form-control-premium" 
+                                placeholder="p.sh. 811000000" 
+                            />
+                        </div>
+                        <div className="form-group-premium mb-0">
+                            <label>NRB (Numri i Regjistrimit të Biznesit)</label>
+                            <input 
+                                name="nrb" 
+                                value={form.nrb} 
+                                onChange={handleChange} 
+                                className="form-control-premium" 
+                                placeholder="p.sh. 70000000" 
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/10">
+                        <button type="button" onClick={handleCloseModal} className="btn-outline">Anulo</button>
+                        <button type="submit" disabled={saving} className="btn-premium min-w-[120px]">
+                            {saving ? "Duke ruajtur..." : "Ruaj Klientin"}
+                        </button>
+                    </div>
+                </form>
+            </CustomModal>
         </div>
     );
 }

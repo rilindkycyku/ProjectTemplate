@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../Components/layout/Footer";
-import NavBar from "../Components/layout/NavBar";
+import NavBar from "../../Components/layout/NavBar";
+import Footer from "../../Components/layout/Footer";
 import { Helmet } from "react-helmet-async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone, faLocationDot, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +15,7 @@ const ContactUs = () => {
       <NavBar />
       <div className="orb-bg"></div>
       
-      <main className="flex-1 max-w-[1200px] mx-auto py-24 px-8 w-full">
+      <main className="flex-1 max-w-[1200px] mx-auto py-16 md:py-24 px-6 md:px-8 w-full">
         <div className="text-center mb-20" data-aos="fade-down" data-aos-duration="600">
           <h1 className="text-[clamp(2.5rem,6vw,4rem)] mb-5 font-extrabold tracking-[-0.03em]">Get in <span className="gradient-text">Touch</span></h1>
           <p className="text-[1.15rem] text-text-muted max-w-[600px] mx-auto">Have questions or suggestions? We'd love to hear from you. Fill out the form and we'll be in touch shortly.</p>
@@ -23,30 +23,30 @@ const ContactUs = () => {
 
         <div className="grid grid-cols-[1fr_1.5fr] gap-12 items-start md:grid-cols-1 md:gap-16">
           <div className="flex flex-col gap-5" data-aos="fade-right" data-aos-delay="100">
-            <div className="glass-card flex items-center gap-6 p-6 transition-transform duration-300 hover:translate-x-[5px] hover:border-primary/30">
-              <div className="w-[52px] h-[52px] bg-gradient-to-br from-primary/15 to-accent/15 rounded-xl flex justify-center items-center text-[1.35rem] text-primary-light border border-primary/25 shrink-0"><FontAwesomeIcon icon={faEnvelope} /></div>
+            <div className="glass-card flex items-center gap-4 md:gap-6 p-5 md:p-6 transition-transform duration-300 hover:translate-x-[5px] hover:border-primary/30">
+              <div className="w-[48px] h-[48px] md:w-[52px] md:h-[52px] bg-gradient-to-br from-primary/15 to-accent/15 rounded-xl flex justify-center items-center text-lg md:text-[1.35rem] text-primary-light border border-primary/25 shrink-0"><FontAwesomeIcon icon={faEnvelope} /></div>
               <div>
-                <h4 className="m-0 mb-1 text-[1rem] text-white">Email Support</h4>
-                <p className="m-0 text-text-muted text-[0.9rem]">support@template.com</p>
+                <h4 className="m-0 mb-1 text-[0.95rem] md:text-[1rem] text-white">Email Support</h4>
+                <p className="m-0 text-text-muted text-[0.85rem] md:text-[0.9rem] break-all">support@template.com</p>
               </div>
             </div>
-            <div className="glass-card flex items-center gap-6 p-6 transition-transform duration-300 hover:translate-x-[5px] hover:border-primary/30">
-              <div className="w-[52px] h-[52px] bg-gradient-to-br from-primary/15 to-accent/15 rounded-xl flex justify-center items-center text-[1.35rem] text-primary-light border border-primary/25 shrink-0"><FontAwesomeIcon icon={faPhone} /></div>
+            <div className="glass-card flex items-center gap-4 md:gap-6 p-5 md:p-6 transition-transform duration-300 hover:translate-x-[5px] hover:border-primary/30">
+              <div className="w-[48px] h-[48px] md:w-[52px] md:h-[52px] bg-gradient-to-br from-primary/15 to-accent/15 rounded-xl flex justify-center items-center text-lg md:text-[1.35rem] text-primary-light border border-primary/25 shrink-0"><FontAwesomeIcon icon={faPhone} /></div>
               <div>
-                <h4 className="m-0 mb-1 text-[1rem] text-white">Phone Call</h4>
-                <p className="m-0 text-text-muted text-[0.9rem]">+383 (44) 123-456</p>
+                <h4 className="m-0 mb-1 text-[0.95rem] md:text-[1rem] text-white">Phone Call</h4>
+                <p className="m-0 text-text-muted text-[0.85rem] md:text-[0.9rem]">+383 (44) 123-456</p>
               </div>
             </div>
-            <div className="glass-card flex items-center gap-6 p-6 transition-transform duration-300 hover:translate-x-[5px] hover:border-primary/30">
-              <div className="w-[52px] h-[52px] bg-gradient-to-br from-primary/15 to-accent/15 rounded-xl flex justify-center items-center text-[1.35rem] text-primary-light border border-primary/25 shrink-0"><FontAwesomeIcon icon={faLocationDot} /></div>
+            <div className="glass-card flex items-center gap-4 md:gap-6 p-5 md:p-6 transition-transform duration-300 hover:translate-x-[5px] hover:border-primary/30">
+              <div className="w-[48px] h-[48px] md:w-[52px] md:h-[52px] bg-gradient-to-br from-primary/15 to-accent/15 rounded-xl flex justify-center items-center text-lg md:text-[1.35rem] text-primary-light border border-primary/25 shrink-0"><FontAwesomeIcon icon={faLocationDot} /></div>
               <div>
-                <h4 className="m-0 mb-1 text-[1rem] text-white">Office Location</h4>
-                <p className="m-0 text-text-muted text-[0.9rem]">Prishtina, Kosovo</p>
+                <h4 className="m-0 mb-1 text-[0.95rem] md:text-[1rem] text-white">Office Location</h4>
+                <p className="m-0 text-text-muted text-[0.85rem] md:text-[0.9rem]">Prishtina, Kosovo</p>
               </div>
             </div>
           </div>
 
-          <div className="glass-card p-12 relative z-10 before:content-[''] before:absolute before:-inset-px before:bg-gradient-to-br before:from-primary/30 before:to-transparent before:rounded-2xl before:z-[-1] sm:p-8" data-aos="fade-left" data-aos-delay="200">
+          <div className="glass-card p-6 md:p-12 relative z-10 before:content-[''] before:absolute before:-inset-px before:bg-gradient-to-br before:from-primary/30 before:to-transparent before:rounded-2xl before:z-[-1]" data-aos="fade-left" data-aos-delay="200">
             <form>
               <div className="form-group-premium">
                 <label>Full Name</label>

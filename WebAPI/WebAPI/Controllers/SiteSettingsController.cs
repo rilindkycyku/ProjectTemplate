@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Models;
+using WebAPI.Services;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers;
 
@@ -12,12 +14,16 @@ public class SiteSettingsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly IWebHostEnvironment _env;
+    private readonly IAdminLogService _adminLogService;
 
-    public SiteSettingsController(ApplicationDbContext context, IWebHostEnvironment env)
+    public SiteSettingsController(ApplicationDbContext context, IWebHostEnvironment env, IAdminLogService adminLogService)
     {
         _context = context;
         _env = env;
+        _adminLogService = adminLogService;
     }
+
+    private string GetUserId() => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
     // GET - public, no auth needed (navbar/footer need it)
     [HttpGet]
@@ -50,6 +56,13 @@ public class SiteSettingsController : ControllerBase
         settings.LinkedIn = updated.LinkedIn;
 
         await _context.SaveChangesAsync();
+
+        var userId = GetUserId();
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await _adminLogService.LogAsync(userId, "Ndrysho", "Cilesimet e Sajtit", settings.Id.ToString(), "U përditësuan cilësimet e platformës.");
+        }
+
         return Ok(settings);
     }
 
@@ -92,6 +105,12 @@ public class SiteSettingsController : ControllerBase
 
         settings.Logo = uniqueName;
         await _context.SaveChangesAsync();
+
+        var userId = GetUserId();
+        if (!string.IsNullOrEmpty(userId))
+        {
+            await _adminLogService.LogAsync(userId, "Ndrysho", "Cilesimet e Sajtit", settings.Id.ToString(), "U ndryshua logo e platformës.");
+        }
 
         return Ok(new { logo = uniqueName });
     }

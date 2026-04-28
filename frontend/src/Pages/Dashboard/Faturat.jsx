@@ -5,13 +5,12 @@ import {
   faFileInvoice, faPlus, faEye, faTrash, faArrowLeft,
   faSpinner, faSearch, faBuilding, faCalendar, faEuro
 } from "@fortawesome/free-solid-svg-icons";
-import NavBar from "../Components/layout/NavBar";
-import Footer from "../Components/layout/Footer";
-import Fatura from "../Components/Fatura/Fatura";
-import CustomSelect from "../Components/layout/CustomSelect";
-import { useAuth } from "../Context/AuthContext";
+import Fatura from "../../Components/Fatura/Fatura";
+import CustomSelect from "../../Components/layout/CustomSelect";
+import CustomTable from "../../Components/layout/CustomTable";
+import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../api/apiClient";
+import apiClient from "../../api/apiClient";
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 const fmt = (n) => parseFloat(n || 0).toFixed(2);
@@ -318,6 +317,60 @@ export default function FaturatPage() {
     }
   };
 
+  const columns = [
+    { 
+      header: "Nr. Faturës", 
+      accessor: "nrFatures", 
+      render: (f) => (
+        <span className="font-mono text-indigo-300 font-bold text-xs bg-indigo-500/10 px-2 py-1 rounded-md border border-indigo-500/20">
+          {f.nrFatures || `#${f.id}`}
+        </span>
+      ) 
+    },
+    { 
+      header: "Lloji", 
+      accessor: "titulli", 
+      render: (f) => (
+        <span className="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded-md font-bold text-gray-300">
+          {f.titulli || "FATURE"}
+        </span>
+      )
+    },
+    { header: "Klienti", accessor: "klientiEmri", render: (f) => <span className="text-gray-300">{f.klientiEmri || "—"}</span> },
+    { header: "Data", accessor: "dataRegjistrimit", render: (f) => <span className="text-gray-400 text-xs">{fmtDate(f.dataRegjistrimit)}</span> },
+    { 
+      header: "Totali (€)", 
+      accessor: "totaliMeTVSH", 
+      render: (f) => <span className="font-bold text-emerald-400">€ {fmt(f.totaliMeTVSH)}</span> 
+    },
+    { 
+      header: "Veprime", 
+      accessor: "actions", 
+      render: (f) => (
+        <div className="flex items-center gap-2 justify-end">
+          <button
+            onClick={() => setActiveFaturaId(f.id)}
+            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/20 transition-all"
+          >
+            <FontAwesomeIcon icon={faEye} /> Shiko
+          </button>
+          {isAdmin && (
+            <button
+              onClick={() => fshijFaturen(f.id)}
+              disabled={deleting === f.id}
+              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-all disabled:opacity-50"
+            >
+              {deleting === f.id
+                ? <FontAwesomeIcon icon={faSpinner} spin />
+                : <FontAwesomeIcon icon={faTrash} />}
+              Fshi
+            </button>
+          )}
+        </div>
+      ) 
+    }
+  ];
+
   const filtered = faturat.filter(f =>
     (f.nrFatures || "").toLowerCase().includes(search.toLowerCase()) ||
     (f.klientiEmri || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -327,35 +380,23 @@ export default function FaturatPage() {
   // ── Show invoice viewer ────────────────────────────────────────────────────
   if (activeFaturaId) {
     return (
-      <div className="bg-bg-darker min-h-screen flex flex-col">
-        <NavBar />
-        <main className="flex-1 relative z-10">
-          <div className="max-w-[1200px] mx-auto px-4 py-4">
-            <button
-              onClick={() => setActiveFaturaId(null)}
-              className="mb-4 flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"
-            >
-              <FontAwesomeIcon icon={faArrowLeft} /> Kthehu te Lista
-            </button>
-          </div>
-          <Fatura faturaId={activeFaturaId} mbyllFaturen={() => setActiveFaturaId(null)} />
-        </main>
-        <Footer />
+      <div className="w-full relative z-10">
+        <div className="w-full mx-auto pb-4">
+          <button
+            onClick={() => setActiveFaturaId(null)}
+            className="mb-4 flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} /> Kthehu te Lista
+          </button>
+        </div>
+        <Fatura faturaId={activeFaturaId} mbyllFaturen={() => setActiveFaturaId(null)} />
       </div>
     );
   }
 
   return (
-    <div className="bg-bg-darker min-h-screen flex flex-col">
-      <Helmet>
-        <title>Faturat | Project Template</title>
-        <meta name="description" content="Invoice management module — create, view, and manage invoices." />
-      </Helmet>
-
-      <NavBar />
-      <div className="orb-bg" />
-
-      <main className="flex-1 max-w-[1400px] w-full mx-auto py-12 px-6 relative z-10">
+    <>
+      <div className="w-full relative z-10">
 
         {/* Page Header */}
         <div className="flex items-center justify-between mb-10 flex-wrap gap-4" data-aos="fade-up">
@@ -410,97 +451,18 @@ export default function FaturatPage() {
           ))}
         </div>
 
-        {/* Table card */}
-        <div className="glass-card rounded-2xl border border-white/10 overflow-hidden" data-aos="fade-up" data-aos-delay="150">
-
-          {/* Search bar */}
-          <div className="p-5 border-b border-white/10 flex items-center gap-3">
-            <FontAwesomeIcon icon={faSearch} className="text-gray-500" />
-            <input
-              className="bg-transparent text-white text-sm flex-1 outline-none placeholder-gray-500"
-              placeholder="Kërko sipas numrit, klientit ose llojit..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-            <span className="text-[0.7rem] text-gray-500 uppercase tracking-wider font-bold">
-              {filtered.length} fatura
-            </span>
-          </div>
-
-          {loading ? (
-            <div className="flex items-center justify-center py-24">
-              <FontAwesomeIcon icon={faSpinner} spin className="text-indigo-400 text-3xl" />
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-gray-500 text-2xl mb-4">
-                <FontAwesomeIcon icon={faFileInvoice} />
-              </div>
-              <p className="text-gray-400 font-medium">Nuk ka fatura</p>
-              <p className="text-gray-600 text-sm mt-1">Klikoni "Faturë e Re" për të filluar</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-white min-w-[700px]">
-                <thead>
-                  <tr className="bg-white/[0.03] text-gray-400 uppercase tracking-wider text-[0.7rem] border-b border-white/10">
-                    {["Nr. Faturës", "Lloji", "Klienti", "Data", "Totali (€)", ""].map(h => (
-                      <th key={h} className="px-6 py-4 text-left font-bold">{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((f, idx) => (
-                    <tr
-                      key={f.id}
-                      className="border-t border-white/5 hover:bg-white/[0.03] transition-colors group"
-                      style={{ animationDelay: `${idx * 30}ms` }}
-                    >
-                      <td className="px-6 py-4">
-                        <span className="font-mono text-indigo-300 font-bold text-xs bg-indigo-500/10 px-2 py-1 rounded-md border border-indigo-500/20">
-                          {f.nrFatures || `#${f.id}`}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded-md font-bold text-gray-300">
-                          {f.titulli || "FATURE"}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-gray-300">{f.klientiEmri || "—"}</td>
-                      <td className="px-6 py-4 text-gray-400 text-xs">{fmtDate(f.dataRegjistrimit)}</td>
-                      <td className="px-6 py-4 font-bold text-emerald-400">€ {fmt(f.totaliMeTVSH)}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2 justify-end">
-                          <button
-                            onClick={() => setActiveFaturaId(f.id)}
-                            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/20 transition-all"
-                          >
-                            <FontAwesomeIcon icon={faEye} /> Shiko
-                          </button>
-                          {isAdmin && (
-                            <button
-                              onClick={() => fshijFaturen(f.id)}
-                              disabled={deleting === f.id}
-                              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-all disabled:opacity-50"
-                            >
-                              {deleting === f.id
-                                ? <FontAwesomeIcon icon={faSpinner} spin />
-                                : <FontAwesomeIcon icon={faTrash} />}
-                              Fshi
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+        {/* Table Area */}
+        <div className="glass-card p-6" data-aos="fade-up" data-aos-delay="150">
+          <CustomTable 
+            data={filtered}
+            columns={columns}
+            loading={loading}
+            searchQuery={search}
+            onSearchChange={setSearch}
+            searchPlaceholder="Kërko sipas numrit, klientit ose llojit..."
+          />
         </div>
-      </main>
-
-      <Footer />
+      </div>
 
       {shfaqFormarin && (
         <ShtoFaturen
@@ -508,6 +470,6 @@ export default function FaturatPage() {
           onClose={() => setShfaqFormarin(false)}
         />
       )}
-    </div>
+    </>
   );
 }

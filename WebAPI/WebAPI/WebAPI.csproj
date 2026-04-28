@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -32,5 +32,10 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
+
+  <!-- Auto-kill running instance of WebAPI on Windows to avoid file lock errors during build -->
+  <Target Name="KillRunningWebAPI" BeforeTargets="PreBuildEvent" Condition="'$(OS)' == 'Windows_NT'">
+    <Exec Command="taskkill /F /IM WebAPI.exe 2&gt;nul || exit 0" />
+  </Target>
 
 </Project>

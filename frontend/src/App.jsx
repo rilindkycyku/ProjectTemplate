@@ -1,18 +1,15 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import LogIn from "./Pages/LogIn";
-import SignUp from "./Pages/SignUp";
-import Dashboard from "./Pages/Dashboard";
+import Home from "./Pages/Public/Home";
+import LogIn from "./Pages/Auth/LogIn";
+import SignUp from "./Pages/Auth/SignUp";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 import AdminDashboard from "./Components/Dashboard/AdminDashboard";
-import AboutUs from "./Pages/AboutUs";
-import ContactUs from "./Pages/ContactUs";
+import AboutUs from "./Pages/Public/AboutUs";
+import ContactUs from "./Pages/Public/ContactUs";
 
-import ProtectedRoute from "./Components/layout/ProtectedRoute";
+import ProtectedRoute from "./Components/KontrolliAksesit/ProtectedRoute";
 import ScrollToTop from "./Components/layout/ScrollToTop";
-import FaturatPage from "./Pages/Faturat";
-import BankatPage from "./Pages/Bankat";
-import KlientetPage from "./Pages/Klientet";
 import NukKeniAkses from "./Components/ErrorPages/403";
 import NukUGjet from "./Components/ErrorPages/404";
 import "./App.css";
@@ -43,21 +40,6 @@ function App() {
             </ProtectedRoute>
           } 
         />
-        <Route path="/Faturat" element={
-            <ProtectedRoute requiredRole={['Admin', 'Menaxher']}>
-              <FaturatPage />
-            </ProtectedRoute>
-          } />
-          <Route path="/Bankat" element={
-            <ProtectedRoute requiredRole={['Admin']}>
-              <BankatPage />
-            </ProtectedRoute>
-          } />
-          <Route path="/Klientet" element={
-            <ProtectedRoute requiredRole={['Admin']}>
-              <KlientetPage />
-            </ProtectedRoute>
-          } />
         {/* Error pages */}
         <Route path="/403" element={<NukKeniAkses />} />
         <Route path="*" element={<NukUGjet />} />
