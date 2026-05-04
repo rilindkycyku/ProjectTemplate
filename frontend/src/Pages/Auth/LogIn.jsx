@@ -62,8 +62,8 @@ const LogIn = () => {
       <NavBar />
       <div className="orb-bg"></div>
 
-      <main className="flex-1 flex justify-center items-center py-20 px-6 relative z-10">
-        <div className="glass-card w-full max-w-[480px] p-12 relative z-10 before:content-[''] before:absolute before:-inset-px before:bg-gradient-to-br before:from-primary/50 before:to-accent/50 before:rounded-[15px] before:z-[-1] before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-400 sm:p-8" data-aos="zoom-in" data-aos-duration="600">
+      <main className="flex-1 flex justify-center items-center py-10 md:py-20 px-4 md:px-6 relative z-10">
+        <div className="glass-card w-full max-w-[480px] p-8 md:p-12 relative z-10 before:content-[''] before:absolute before:-inset-px before:bg-gradient-to-br before:from-primary/50 before:to-accent/50 before:rounded-[15px] before:z-[-1] before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-400" data-aos="zoom-in" data-aos-duration="600">
           <div className="text-center mb-10">
             <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-primary to-accent rounded-[18px] flex items-center justify-center text-2xl text-white shadow-[0_8px_24px_rgba(99,102,241,0.4)]">
               <FontAwesomeIcon icon={faSignInAlt} />

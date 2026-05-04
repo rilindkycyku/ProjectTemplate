@@ -25,14 +25,14 @@ Ju mund ta startoni projektin në dy mënyra: duke përdorur **Docker** (më e l
 1. Në folderin kryesor të projektit, kopjoni file-in `.env.example` dhe emërtojeni `.env`.
 2. Hapni terminalin në folderin kryesor dhe ekzekutoni komandën:
    ```bash
-   docker compose up -d
+   docker compose up -d --build
    ```
-   *(Kjo komandë do të shkarkojë dhe startojë automatikisht databazën MSSQL dhe WebAPI-në. Databaza do të migrohet dhe të dhënat fillestare do të shtohen vetë).*
-3. Hapni një terminal të ri në folderin `frontend` dhe ekzekutoni:
-   ```bash
-   npm install
-   npm run dev
-   ```
+   *(Kjo komandë do të ndërtojë dhe startojë automatikisht të tre shërbimet: databazën MSSQL, WebAPI-në dhe Frontend-in. Databaza do të migrohet dhe të dhënat fillestare do të shtohen vetë).*
+3. Pasi të jenë startuar të gjitha kontejnerët, hapni shfletuesin tuaj dhe shkoni te:
+   - **Frontend:** `http://localhost:3000`
+   - **API (Swagger):** `http://localhost:5274/swagger`
+
+   > **Shënim:** Fronendi tani është i kontejnerizuar dhe i servuar nga nginx. Nuk keni nevojë të ekzekutoni `npm run dev` kur përdorni Docker.
 
 ### Opsioni 2: Konfigurimi Manual (Pa Docker)
 

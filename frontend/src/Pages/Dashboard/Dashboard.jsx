@@ -56,15 +56,15 @@ const Dashboard = () => {
       <NavBar />
       <div className="orb-bg"></div>
 
-      <main className="flex-1 max-w-[1200px] w-full mx-auto py-16 px-8 relative z-10">
+      <main className="flex-1 max-w-[1200px] w-full mx-auto py-8 md:py-16 px-4 md:px-8 relative z-10">
         {loading ? (
           <div className="Loader">
             <TailSpin height="60" width="60" color="#818cf8" visible={true} />
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-8" data-aos="fade-up" data-aos-duration="600">
-            <section className="glass-card p-12 relative overflow-hidden after:content-[''] after:absolute after:top-0 after:right-0 after:w-[400px] after:h-[400px] after:bg-[radial-gradient(circle,rgba(99,102,241,0.05)_0%,transparent_60%)] after:translate-x-[30%] after:-translate-y-[30%] after:pointer-events-none sm:p-8">
-              <div className="flex items-center gap-8 mb-12 pb-8 border-b border-white/5 md:flex-col md:text-center md:gap-6">
+            <section className="glass-card p-6 sm:p-8 md:p-12 relative overflow-hidden after:content-[''] after:absolute after:top-0 after:right-0 after:w-[400px] after:h-[400px] after:bg-[radial-gradient(circle,rgba(99,102,241,0.05)_0%,transparent_60%)] after:translate-x-[30%] after:-translate-y-[30%] after:pointer-events-none">
+              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8 md:mb-12 pb-6 md:pb-8 border-b border-white/5 text-center sm:text-left">
                 <div className="w-[100px] h-[100px] bg-gradient-to-br from-primary to-accent rounded-2xl flex justify-center items-center text-5xl text-white shadow-[0_12px_24px_rgba(99,102,241,0.3)] relative border-2 border-white/10 shrink-0">
                   <FontAwesomeIcon icon={faUser} />
                 </div>
@@ -79,7 +79,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-10 mb-12 md:grid-cols-1 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 md:gap-10 mb-8 md:mb-12">
                 <div className="flex flex-col gap-2 bg-white/[0.02] p-6 rounded-xl border border-white/[0.04]">
                   <label className="text-primary-light text-[0.75rem] uppercase tracking-[0.1em] font-bold">Username</label>
                   <span className="text-[1.15rem] font-medium text-white">{teDhenat?.perdoruesi?.username}</span>
@@ -88,7 +88,7 @@ const Dashboard = () => {
                   <label className="text-primary-light text-[0.75rem] uppercase tracking-[0.1em] font-bold">Phone</label>
                   <span className="text-[1.15rem] font-medium text-white">{teDhenat?.perdoruesi?.teDhenatPerdoruesit?.nrKontaktit || "Not set"}</span>
                 </div>
-                <div className="col-span-2 flex flex-col gap-2 bg-white/[0.02] p-6 rounded-xl border border-white/[0.04] md:col-span-1">
+                <div className="col-span-1 sm:col-span-2 flex flex-col gap-2 bg-white/[0.02] p-6 rounded-xl border border-white/[0.04]">
                   <label className="text-primary-light text-[0.75rem] uppercase tracking-[0.1em] font-bold">Address</label>
                   <span className="text-[1.15rem] font-medium text-white">{teDhenat?.perdoruesi?.teDhenatPerdoruesit ? 
                     `${teDhenat.perdoruesi.teDhenatPerdoruesit.adresa}, ${teDhenat.perdoruesi.teDhenatPerdoruesit.qyteti}` : 
@@ -96,7 +96,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4 flex-wrap md:flex-col">
+              <div className="flex gap-3 flex-wrap">
                 <button
                   onClick={() => setMbyllPerditesoTeDhenat(false)}
                   className="btn-premium"

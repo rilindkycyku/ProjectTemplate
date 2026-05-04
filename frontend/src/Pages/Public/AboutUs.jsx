@@ -15,8 +15,8 @@ const AboutUs = () => {
       <NavBar />
       <div className="orb-bg"></div>
       
-      <main className="flex-1 max-w-[1000px] mx-auto py-24 px-8 w-full">
-        <section className="text-center mb-20" data-aos="fade-up" data-aos-duration="600">
+      <main className="flex-1 max-w-[1000px] mx-auto py-12 md:py-24 px-5 md:px-8 w-full">
+        <section className="text-center mb-10 md:mb-20" data-aos="fade-up" data-aos-duration="600">
             <h1 className="text-[clamp(2.5rem,6vw,4rem)] mb-5 font-extrabold tracking-[-0.03em]">About the <span className="gradient-text">Template</span></h1>
             <p className="text-[1.15rem] text-text-muted max-w-[600px] mx-auto leading-relaxed">Empowering developers with a rock-solid foundation for modern, secure, and scalable full-stack development.</p>
         </section>

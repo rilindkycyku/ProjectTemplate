@@ -102,8 +102,8 @@ function PerditesoTeDhenat(props) {
                 <div className="flex flex-col gap-8">
                     {/* Personal Info */}
                     <div className="bg-white/[0.02] border border-white/5 p-6 rounded-xl relative">
-                        <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-                            <h4 className="m-0 text-white font-bold flex items-center gap-2 text-[1.1rem]">
+                        <div className="flex flex-wrap justify-between items-center gap-2 mb-6 border-b border-white/5 pb-4">
+                            <h4 className="m-0 text-white font-bold flex items-center gap-2 text-[1rem] md:text-[1.1rem] min-w-0 truncate">
                                 <FontAwesomeIcon icon={faUserCircle} className="text-primary-light" />
                                 Personal Information
                             </h4>
@@ -145,8 +145,8 @@ function PerditesoTeDhenat(props) {
 
                     {/* Address Details */}
                     <div className="bg-white/[0.02] border border-white/5 p-6 rounded-xl relative">
-                        <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-                            <h4 className="m-0 text-white font-bold flex items-center gap-2 text-[1.1rem]">
+                        <div className="flex flex-wrap justify-between items-center gap-2 mb-6 border-b border-white/5 pb-4">
+                            <h4 className="m-0 text-white font-bold flex items-center gap-2 text-[1rem] md:text-[1.1rem] min-w-0 truncate">
                                 <FontAwesomeIcon icon={faMapLocationDot} className="text-secondary-light" />
                                 Address Details
                             </h4>
@@ -188,8 +188,8 @@ function PerditesoTeDhenat(props) {
 
                     {/* Security */}
                     <div className="bg-white/[0.02] border border-white/5 p-6 rounded-xl relative">
-                        <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-                            <h4 className="m-0 text-white font-bold flex items-center gap-2 text-[1.1rem]">
+                        <div className="flex flex-wrap justify-between items-center gap-2 mb-6 border-b border-white/5 pb-4">
+                            <h4 className="m-0 text-white font-bold flex items-center gap-2 text-[1rem] md:text-[1.1rem] min-w-0 truncate">
                                 <FontAwesomeIcon icon={faShieldHalved} className="text-amber-400" />
                                 Security
                             </h4>

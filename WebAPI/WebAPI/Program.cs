@@ -122,11 +122,15 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// ── Auto-migrate on startup ───────────────────────────────────────────────────
+// ── Auto-migrate on startup (with retry) ─────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
+    for (int i = 0; i < 5; i++)
+    {
+        try { db.Database.Migrate(); break; }
+        catch { Thread.Sleep(5000); }
+    }
 }
 
 app.Run();

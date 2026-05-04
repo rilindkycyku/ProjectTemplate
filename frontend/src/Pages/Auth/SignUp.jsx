@@ -5,8 +5,6 @@ import Footer from "../../Components/layout/Footer";
 import apiClient from "../../api/apiClient";
 import { useAuth } from "../../Context/AuthContext";
 import Mesazhi from "../../Components/layout/Mesazhi";
-import Col from "react-bootstrap/Col";
-import { Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faIdCard, faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -80,10 +78,10 @@ const SignUp = () => {
       
       <div className="orb-bg"></div>
 
-      <main className="flex-1 flex justify-center items-center py-24 px-6 relative z-10">
-        <div className="glass-card w-full max-w-[720px] p-14 relative z-10 before:content-[''] before:absolute before:-inset-px before:bg-gradient-to-br before:from-secondary/50 before:to-primary/50 before:rounded-[15px] before:z-[-1] before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-400 sm:p-10" data-aos="fade-up" data-aos-duration="600">
+      <main className="flex-1 flex justify-center items-start py-10 md:py-24 px-4 md:px-6 relative z-10">
+        <div className="glass-card w-full max-w-[720px] p-6 sm:p-10 md:p-14 relative z-10 before:content-[''] before:absolute before:-inset-px before:bg-gradient-to-br before:from-secondary/50 before:to-primary/50 before:rounded-[15px] before:z-[-1] before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-400" data-aos="fade-up" data-aos-duration="600">
           <div className="text-center mb-12">
-            <h2 className="text-[2.25rem] mb-2 font-extrabold tracking-[-0.02em]">Create Account</h2>
+            <h2 className="text-[1.75rem] md:text-[2.25rem] mb-2 font-extrabold tracking-[-0.02em]">Create Account</h2>
             <p className="text-text-muted text-[1rem]">Join our professional platform today</p>
           </div>
 
@@ -92,9 +90,8 @@ const SignUp = () => {
               <h5 className="section-title"><FontAwesomeIcon icon={faIdCard} className="me-2"/> Personal Info</h5>
             </div>
             
-            <Row className="flex flex-wrap -mx-3 sm:flex-col sm:m-0">
-              <Col className="flex-1 px-3 sm:px-0">
-                <div className="form-group-premium">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+              <div className="form-group-premium">
                   <label htmlFor="formGridName">First Name *</label>
                   <input
                     id="formGridName"
@@ -104,10 +101,8 @@ const SignUp = () => {
                     onChange={(e) => setEmri(e.target.value)}
                     required
                   />
-                </div>
-              </Col>
-              <Col className="flex-1 px-3 sm:px-0">
-                <div className="form-group-premium">
+              </div>
+              <div className="form-group-premium">
                   <label htmlFor="formGridLastName">Last Name *</label>
                   <input
                     id="formGridLastName"
@@ -117,9 +112,8 @@ const SignUp = () => {
                     onChange={(e) => setMbiemri(e.target.value)}
                     required
                   />
-                </div>
-              </Col>
-            </Row>
+              </div>
+            </div>
 
             <div className="form-group-premium">
               <label htmlFor="formGridUsername">Username *</label>
@@ -163,9 +157,8 @@ const SignUp = () => {
               <h5 className="section-title"><FontAwesomeIcon icon={faMapLocationDot} className="me-2"/> Location Details</h5>
             </div>
 
-            <Row className="flex flex-wrap -mx-3 sm:flex-col sm:m-0">
-              <Col className="flex-1 px-3 sm:px-0">
-                <div className="form-group-premium">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+              <div className="form-group-premium">
                   <label htmlFor="formGridPhone">Phone Number</label>
                   <input
                     id="formGridPhone"
@@ -174,10 +167,8 @@ const SignUp = () => {
                     value={nrTelefonit}
                     onChange={(e) => setNrTelefonit(e.target.value)}
                   />
-                </div>
-              </Col>
-              <Col className="flex-1 px-3 sm:px-0">
-                <div className="form-group-premium">
+              </div>
+              <div className="form-group-premium">
                   <label htmlFor="formGridCity">City</label>
                   <input
                     id="formGridCity"
@@ -186,9 +177,8 @@ const SignUp = () => {
                     value={qyteti}
                     onChange={(e) => setQyteti(e.target.value)}
                   />
-                </div>
-              </Col>
-            </Row>
+              </div>
+            </div>
 
             <div className="form-group-premium">
               <label htmlFor="formGridAddress">Street Address</label>
@@ -201,9 +191,8 @@ const SignUp = () => {
               />
             </div>
 
-            <Row className="flex flex-wrap -mx-3 sm:flex-col sm:m-0">
-              <Col className="flex-1 px-3 sm:px-0">
-                <div className="form-group-premium">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+              <div className="form-group-premium">
                   <label htmlFor="formGridState">State / Country</label>
                   <input
                     id="formGridState"
@@ -212,10 +201,8 @@ const SignUp = () => {
                     value={shteti}
                     onChange={(e) => setShteti(e.target.value)}
                   />
-                </div>
-              </Col>
-              <Col className="flex-1 px-3 sm:px-0">
-                <div className="form-group-premium">
+              </div>
+              <div className="form-group-premium">
                   <label htmlFor="formGridZip">Zip Code</label>
                   <input
                     id="formGridZip"
@@ -224,9 +211,8 @@ const SignUp = () => {
                     value={zipKodi}
                     onChange={(e) => setZipKodi(e.target.value)}
                   />
-                </div>
-              </Col>
-            </Row>
+              </div>
+            </div>
 
             <button type="submit" className="btn-premium w-full py-3 mt-4" disabled={isLoading}>
               {isLoading ? 'Creating Account...' : (

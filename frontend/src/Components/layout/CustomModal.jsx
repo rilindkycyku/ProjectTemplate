@@ -82,13 +82,13 @@ const CustomModal = ({
         )}
 
         {/* Body */}
-        <div className="p-6 overflow-y-auto flex-1">
+        <div className="p-4 md:p-6 overflow-y-auto flex-1">
           {children}
         </div>
 
         {/* Footer */}
         {footer && (
-          <div className="p-6 pt-0 shrink-0 flex items-center justify-end gap-3 border-t border-white/5 mt-2">
+          <div className="p-4 md:p-6 pt-0 shrink-0 flex items-center justify-end gap-3 border-t border-white/5 mt-2">
             {footer}
           </div>
         )}

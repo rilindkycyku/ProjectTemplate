@@ -24,7 +24,7 @@ const Footer = () => {
 
     return (
         <footer className="bg-bg-darker border-t border-white/5 pt-12 md:pt-16 pb-8 relative z-10 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary-light/30 before:to-transparent">
-            <div className="max-w-[1200px] mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.5fr] gap-10 md:gap-12 pb-12">
+            <div className="max-w-[1200px] mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.5fr] gap-8 md:gap-12 pb-10 md:pb-12">
 
                 {/* Brand */}
                 <div className="flex flex-col gap-5">
@@ -58,7 +58,7 @@ const Footer = () => {
                 </div>
 
                 {/* Links */}
-                <div className="flex gap-12 sm:gap-16">
+                <div className="flex gap-8 sm:gap-16">
                     <div className="flex flex-col gap-3">
                         <h4 className="text-white font-bold text-[1.05rem] mb-2">Pages</h4>
                         <Link to="/" className="text-text-muted text-[0.95rem] transition-colors hover:text-primary-light">Home</Link>
@@ -92,7 +92,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="max-w-[1200px] mx-auto px-6 md:px-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 text-center md:text-left">
+            <div className="max-w-[1200px] mx-auto px-5 md:px-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
                 <p className="text-text-dim text-[0.9rem] m-0">
                     <FontAwesomeIcon icon={faCopyright} /> {currentYear} {settings?.siteEmri || "Project Template"}. All rights reserved.
                 </p>

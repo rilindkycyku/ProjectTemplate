@@ -46,12 +46,21 @@ const AdminDashboard = () => {
       <main className="flex-1 max-w-[1600px] w-full mx-auto py-6 px-4 md:py-12 md:px-6 relative z-10 flex flex-col">
         <div className="glass-card w-full flex relative flex-1 shadow-[0_0_50px_rgba(0,0,0,0.2)] border border-white/10 rounded-2xl overflow-hidden min-h-[600px] md:min-h-[750px]">
           
-          {/* Mobile Sidebar Toggle */}
+          {/* Mobile Sidebar Backdrop */}
+          {sidebarOpen && (
+            <div
+              className="md:hidden fixed inset-0 bg-black/60 z-[80] backdrop-blur-sm"
+              onClick={() => setSidebarOpen(false)}
+            />
+          )}
+
+          {/* Mobile Sidebar Toggle FAB */}
           <button 
-            className="md:hidden fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-white shadow-2xl z-[100] flex items-center justify-center text-xl border-2 border-white/20"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="md:hidden fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-white shadow-2xl z-[100] flex items-center justify-center text-xl border-2 border-white/20 transition-transform duration-300"
+            onClick={() => setSidebarOpen(o => !o)}
+            aria-label="Toggle navigation menu"
           >
-            <FontAwesomeIcon icon={faCogs} className={sidebarOpen ? "rotate-90 transition-transform" : "transition-transform"} />
+            <FontAwesomeIcon icon={faCogs} className={`transition-transform duration-300 ${sidebarOpen ? "rotate-90" : ""}`} />
           </button>
 
           {/* Sidebar SubNav */}
@@ -94,7 +103,7 @@ const AdminDashboard = () => {
                 <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-1 ${expandedCategories.identity ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
                   <button 
                     className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'users' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                    onClick={() => setActiveTab('users')}
+                    onClick={() => { setActiveTab('users'); setSidebarOpen(false); }}
                   >
                     <FontAwesomeIcon icon={faUsers} className="w-4" /> User Directory
                   </button>
@@ -116,7 +125,7 @@ const AdminDashboard = () => {
                   <RoleCheck roletELejuara={["Admin", "Menaxher"]}>
                     <button 
                       className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'stats' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                      onClick={() => setActiveTab('stats')}
+                      onClick={() => { setActiveTab('stats'); setSidebarOpen(false); }}
                     >
                       <FontAwesomeIcon icon={faChartLine} className="w-4" /> System Analytics
                     </button>
@@ -124,7 +133,7 @@ const AdminDashboard = () => {
                   <RoleCheck roletELejuara={["Admin"]}>
                     <button 
                       className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'logs' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                      onClick={() => setActiveTab('logs')}
+                      onClick={() => { setActiveTab('logs'); setSidebarOpen(false); }}
                     >
                       <FontAwesomeIcon icon={faDatabase} className="w-4" /> System Logs
                     </button>
@@ -146,7 +155,7 @@ const AdminDashboard = () => {
                 <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-1 ${expandedCategories.siteConfig ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
                   <button
                     className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'siteSettings' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                    onClick={() => setActiveTab('siteSettings')}
+                    onClick={() => { setActiveTab('siteSettings'); setSidebarOpen(false); }}
                   >
                     <FontAwesomeIcon icon={faGlobe} className="w-4" /> Site Settings
                   </button>
@@ -168,19 +177,19 @@ const AdminDashboard = () => {
                 <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-1 ${expandedCategories.modules ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
                   <button
                     className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'faturat' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                    onClick={() => setActiveTab('faturat')}
+                    onClick={() => { setActiveTab('faturat'); setSidebarOpen(false); }}
                   >
                     <FontAwesomeIcon icon={faFileInvoiceDollar} className="w-4" /> Faturat
                   </button>
                   <button
                     className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'bankat' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                    onClick={() => setActiveTab('bankat')}
+                    onClick={() => { setActiveTab('bankat'); setSidebarOpen(false); }}
                   >
                     <FontAwesomeIcon icon={faUniversity} className="w-4" /> Llogaritë Bankare
                   </button>
                   <button
                     className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'klientet' ? 'bg-primary/20 text-primary-light border border-primary/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'}`}
-                    onClick={() => setActiveTab('klientet')}
+                    onClick={() => { setActiveTab('klientet'); setSidebarOpen(false); }}
                   >
                     <FontAwesomeIcon icon={faUsers} className="w-4" /> Klientët
                   </button>
@@ -210,16 +219,16 @@ const AdminDashboard = () => {
             {/* Component Content */}
             <div className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
               <RoleCheck roletELejuara={["Admin"]}>
-                {activeTab === 'users' && <div onClick={() => setSidebarOpen(false)}><TabelaEPerdoruesve /></div>}
+                {activeTab === 'users' && <TabelaEPerdoruesve />}
                 {activeTab === 'siteSettings' && <CilesimiSajtit />}
                 {activeTab === 'logs' && <Gjurmimi />}
               </RoleCheck>
               
               <RoleCheck roletELejuara={["Admin", "Menaxher"]}>
-                {activeTab === 'stats' && <div onClick={() => setSidebarOpen(false)}><Statistika /></div>}
-                {activeTab === 'faturat' && <div onClick={() => setSidebarOpen(false)}><Faturat /></div>}
-                {activeTab === 'bankat' && <div onClick={() => setSidebarOpen(false)}><Bankat /></div>}
-                {activeTab === 'klientet' && <div onClick={() => setSidebarOpen(false)}><Klientet /></div>}
+                {activeTab === 'stats' && <Statistika />}
+                {activeTab === 'faturat' && <Faturat />}
+                {activeTab === 'bankat' && <Bankat />}
+                {activeTab === 'klientet' && <Klientet />}
               </RoleCheck>
             </div>
           </div>

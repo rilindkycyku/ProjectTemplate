@@ -21,7 +21,7 @@ const ContactUs = () => {
           <p className="text-[1.15rem] text-text-muted max-w-[600px] mx-auto">Have questions or suggestions? We'd love to hear from you. Fill out the form and we'll be in touch shortly.</p>
         </div>
 
-        <div className="grid grid-cols-[1fr_1.5fr] gap-12 items-start md:grid-cols-1 md:gap-16">
+        <div className="grid grid-cols-1 gap-8 items-start md:grid-cols-[1fr_1.5fr] md:gap-12">
           <div className="flex flex-col gap-5" data-aos="fade-right" data-aos-delay="100">
             <div className="glass-card flex items-center gap-4 md:gap-6 p-5 md:p-6 transition-transform duration-300 hover:translate-x-[5px] hover:border-primary/30">
               <div className="w-[48px] h-[48px] md:w-[52px] md:h-[52px] bg-gradient-to-br from-primary/15 to-accent/15 rounded-xl flex justify-center items-center text-lg md:text-[1.35rem] text-primary-light border border-primary/25 shrink-0"><FontAwesomeIcon icon={faEnvelope} /></div>

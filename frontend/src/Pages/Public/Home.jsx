@@ -30,7 +30,7 @@ function Home() {
                             Build Faster With Our <br />
                             <span className="bg-gradient-to-br from-primary-light via-accent-light to-secondary-light bg-clip-text text-transparent">Premium Template</span>
                         </h1>
-                        <p className="text-lg text-text-muted mb-11 leading-relaxed max-w-[640px] mx-auto">
+                        <p className="text-base md:text-lg text-text-muted mb-8 md:mb-11 leading-relaxed max-w-[640px] mx-auto">
                             Skip the tedious setup and boilerplate. Get a fully configured, production-ready foundation with authentication, authorization, and a modern dashboard out of the box.
                         </p>
                         <div className="flex gap-4 justify-center flex-wrap">
@@ -100,7 +100,7 @@ function Home() {
                 </section>
 
                 {/* Tech Stack Section */}
-                <section className="py-20 px-8 bg-surface border-y border-white/5">
+                <section className="py-12 md:py-20 px-5 md:px-8 bg-surface border-y border-white/5">
                     <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
                         <div data-aos="fade-right">
                             <span className="section-title">Technology</span>
@@ -154,7 +154,7 @@ function Home() {
                 </section>
 
                 {/* CTA Section */}
-                <section className="py-24 px-8 text-center relative overflow-hidden">
+                <section className="py-16 md:py-24 px-5 md:px-8 text-center relative overflow-hidden">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(99,102,241,0.12)_0%,transparent_70%)] pointer-events-none"></div>
                     <div className="relative z-10 max-w-[640px] mx-auto" data-aos="zoom-in">
                         <h2 className="text-[clamp(2rem,5vw,3rem)] mb-5 tracking-[-0.03em]">Ready to start your next project?</h2>
