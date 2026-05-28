@@ -8,7 +8,7 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "${DB_SA_PASSWORD}"
     ports:
-      - "1433:1433"
+      - "1434:1433"
     volumes:
       - sqldata:/var/opt/mssql
     networks:
@@ -36,7 +36,7 @@ services:
       ConnectionStrings__Conn: "Server=db;Database=ProjectTemplateDB;User Id=sa;Password=${DB_SA_PASSWORD};TrustServerCertificate=True"
       JwtConfig__Secret: "${JWT_SECRET}"
     ports:
-      - "5274:80"
+      - "5275:80"
     depends_on:
       db:
         condition: service_healthy
@@ -51,7 +51,7 @@ services:
       dockerfile: Dockerfile
     container_name: projecttemplate-frontend
     ports:
-      - "3000:80"
+      - "3200:80"
     depends_on:
       - api
     networks:

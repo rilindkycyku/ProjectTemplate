@@ -1,3 +1,9 @@
+﻿
+## Statusi i Projektit
+
+> [!WARNING]
+> **KUJDES:** Ky projekt është ende në zhvillim e sipër (Work in Progress / Unfinished). Mund të ketë ndryshime dhe nuk është gati për t'u përdorur në produksion.
+
 # ProjectTemplate
 
 ## Rreth Projektit
@@ -118,3 +124,8 @@ ProjectTemplate/
 
 ### Web API (Swagger UI)
 ![Swagger API](GitHubImage/1API.png)
+
+
+## Të Drejtat e Autorit (Copyright & License)
+
+Ky projekt është pronë intelektuale e **Rilind Kyçyku**. Nuk lejohet përdorimi, kopjimi, modifikimi apo shpërndarja e këtij kodi pa pëlqimin paraprak dhe miratimin me shkrim nga autori. Çdo përdorim i paautorizuar është rreptësisht i ndaluar.
