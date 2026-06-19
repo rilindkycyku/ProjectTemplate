@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import NavBar from "../../Components/layout/NavBar";
 import Footer from "../../Components/layout/Footer";
@@ -27,6 +27,9 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const redirectTimeoutRef = useRef(null);
+
+  useEffect(() => () => clearTimeout(redirectTimeoutRef.current), []);
 
   async function handleSignUp(e) {
     e.preventDefault();
@@ -57,7 +60,7 @@ const SignUp = () => {
       setPershkrimiMesazhit("<strong>Account created successfully!</strong> Redirecting to login...");
       setTipiMesazhit("success");
       setShfaqMesazhin(true);
-      setTimeout(() => navigate("/login"), 2000);
+      redirectTimeoutRef.current = setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       console.error(err);
       setPershkrimiMesazhit("<strong>An error occurred on the server. Please try again.</strong>");

@@ -27,12 +27,12 @@ const CustomSelect = ({
         control: (provided, state) => ({
             ...provided,
             backgroundColor: state.isFocused ? 'rgba(99, 102, 241, 0.05)' : 'rgba(255, 255, 255, 0.05)',
-            borderColor: state.isFocused ? '#6366f1' : 'rgba(255, 255, 255, 0.1)',
+            borderColor: state.isFocused ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.1)',
             minHeight: '48px',
             borderRadius: '0.5rem',
             boxShadow: state.isFocused ? '0 0 0 4px rgba(99, 102, 241, 0.2)' : 'none',
             '&:hover': {
-                borderColor: state.isFocused ? '#6366f1' : 'rgba(255, 255, 255, 0.2)',
+                borderColor: state.isFocused ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.2)',
             },
             transition: 'all 0.2s ease',
             cursor: isDisabled ? 'not-allowed' : 'pointer',
@@ -43,7 +43,7 @@ const CustomSelect = ({
         }),
         input: (provided) => ({
             ...provided,
-            color: '#f1f5f9',
+            color: 'var(--color-text-main)',
             fontFamily: 'Quicksand, sans-serif',
         }),
         placeholder: (provided) => ({
@@ -51,14 +51,14 @@ const CustomSelect = ({
             color: 'rgba(255, 255, 255, 0.2)',
             fontFamily: 'Quicksand, sans-serif',
         }),
-        singleValue: (provided, state) => ({
+        singleValue: (provided) => ({
             ...provided,
-            color: isDisabled ? '#64748b' : '#ffffff',
+            color: isDisabled ? 'var(--color-text-dim)' : '#ffffff',
             fontFamily: 'Quicksand, sans-serif',
         }),
         menu: (provided) => ({
             ...provided,
-            backgroundColor: '#111827', // bg-bg-card
+            backgroundColor: 'var(--color-bg-card)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '0.5rem',
             boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5)',
@@ -78,24 +78,24 @@ const CustomSelect = ({
                 background: 'transparent',
             },
             '::-webkit-scrollbar-thumb': {
-                background: '#4338ca', // primary-dark
+                background: 'var(--color-primary-dark)',
                 borderRadius: '3px',
             },
         }),
         option: (provided, state) => ({
             ...provided,
-            backgroundColor: state.isSelected 
-                ? '#6366f1' 
-                : state.isFocused 
-                    ? 'rgba(255, 255, 255, 0.05)' 
+            backgroundColor: state.isSelected
+                ? 'var(--color-primary)'
+                : state.isFocused
+                    ? 'rgba(255, 255, 255, 0.05)'
                     : 'transparent',
-            color: state.isSelected ? '#ffffff' : '#e2e8f0',
+            color: state.isSelected ? '#ffffff' : 'var(--color-text-main)',
             cursor: 'pointer',
             borderRadius: '0.375rem',
             padding: '10px 12px',
             fontFamily: 'Quicksand, sans-serif',
             '&:active': {
-                backgroundColor: '#818cf8',
+                backgroundColor: 'var(--color-primary-light)',
             },
         }),
         indicatorSeparator: (provided) => ({
@@ -104,16 +104,16 @@ const CustomSelect = ({
         }),
         dropdownIndicator: (provided, state) => ({
             ...provided,
-            color: state.isFocused ? '#6366f1' : '#94a3b8',
+            color: state.isFocused ? 'var(--color-primary)' : 'var(--color-text-muted)',
             '&:hover': {
-                color: '#818cf8',
+                color: 'var(--color-primary-light)',
             },
         }),
         clearIndicator: (provided) => ({
             ...provided,
-            color: '#94a3b8',
+            color: 'var(--color-text-muted)',
             '&:hover': {
-                color: '#ef4444',
+                color: 'var(--color-red-500)',
             },
         }),
         multiValue: (provided) => ({
@@ -123,13 +123,13 @@ const CustomSelect = ({
         }),
         multiValueLabel: (provided) => ({
             ...provided,
-            color: '#e0e7ff',
+            color: 'var(--color-indigo-100)',
         }),
         multiValueRemove: (provided) => ({
             ...provided,
-            color: '#e0e7ff',
+            color: 'var(--color-indigo-100)',
             '&:hover': {
-                backgroundColor: '#ef4444',
+                backgroundColor: 'var(--color-red-500)',
                 color: '#ffffff',
             },
         }),
@@ -152,7 +152,7 @@ const CustomSelect = ({
                 ...theme,
                 colors: {
                     ...theme.colors,
-                    primary: '#6366f1',
+                    primary: 'var(--color-primary)',
                 },
             })}
             {...props}

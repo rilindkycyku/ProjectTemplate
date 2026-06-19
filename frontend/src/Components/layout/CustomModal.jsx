@@ -59,6 +59,9 @@ const CustomModal = ({
 
       {/* Dialog */}
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={title ? "custom-modal-title" : undefined}
         className={`relative w-full ${sizeClass} bg-[#0d1424] border border-white/10 rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col max-h-[95vh] md:max-h-[90vh] animate-[modal-in_0.2s_ease-out]`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -66,7 +69,7 @@ const CustomModal = ({
         {(title || closeButton) && (
           <div className="flex items-center justify-between p-4 md:p-6 pb-2 md:pb-4 border-b border-white/5 shrink-0">
             {title && (
-              <h5 className="text-white font-bold text-base md:text-lg m-0 flex items-center gap-2">
+              <h5 id="custom-modal-title" className="text-white font-bold text-base md:text-lg m-0 flex items-center gap-2">
                 {title}
               </h5>
             )}

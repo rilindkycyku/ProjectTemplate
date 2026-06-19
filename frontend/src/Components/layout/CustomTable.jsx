@@ -20,7 +20,7 @@ import {
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import CustomModal from "./CustomModal";
-import exportFromJSON from "export-from-json";
+import { exportListExcel } from "../../utils/exportToExcel";
 
 // ─── Sort Icon ────────────────────────────────────────────────────────────────
 const SortIcon = ({ active, direction }) => {
@@ -34,8 +34,7 @@ const SortIcon = ({ active, direction }) => {
 };
 
 // ─── Export Modal ─────────────────────────────────────────────────────────────
-const ExportModal = ({ data, fileName, onClose }) => {
-  const [step, setStep] = useState(1); // 1 = pick cols, 2 = pick format
+const ExportModal = ({ data, fileName, onClose, title }) => {
   const allHeaders = data.length > 0 ? Object.keys(data[0]) : [];
   const [selected, setSelected] = useState([]);
 
@@ -53,192 +52,84 @@ const ExportModal = ({ data, fileName, onClose }) => {
     });
   };
 
-  const handleExport = (formatId) => {
-    const formatMap = {
-      csv:  exportFromJSON.types.csv,
-      json: exportFromJSON.types.json,
-      xls:  exportFromJSON.types.xls,
-      txt:  exportFromJSON.types.txt,
-      html: exportFromJSON.types.html,
-      xml:  exportFromJSON.types.xml,
-    };
-    const exportType = formatMap[formatId];
-    if (!exportType) return;
-    exportFromJSON({
-      data: getExportData(),
-      fileName: fileName || "export",
-      exportType,
-    });
+  const handleExport = () => {
+    const exportData = getExportData();
+    const headersToExport = selected.length > 0 ? selected : allHeaders;
+    
+    exportListExcel(
+      title || "Project Template by Rilind Kyçyku", 
+      headersToExport, 
+      exportData, 
+      `${fileName || "Project_Template_Export"}.xlsx`
+    );
     onClose();
   };
-
-  const formats = [
-    { id: "csv",  label: "CSV",   color: "#10b981", desc: "Spreadsheet" },
-    { id: "xls",  label: "Excel", color: "#22c55e", desc: "Excel workbook" },
-    { id: "json", label: "JSON",  color: "#6366f1", desc: "Developer" },
-    { id: "html", label: "HTML",  color: "#f59e0b", desc: "Web page" },
-    { id: "xml",  label: "XML",   color: "#8b5cf6", desc: "Structured" },
-    { id: "txt",  label: "Text",  color: "#94a3b8", desc: "Plain text" },
-  ];
 
   return (
     <CustomModal
       show
       onHide={onClose}
       size="md"
-      title={step === 1 ? "Configure Export" : "Choose Format"}
+      title="Configure Excel Export"
       footer={
-        step === 1 ? (
-          <>
-            <button
-              className="px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-text-muted hover:text-white hover:bg-white/10 transition-colors"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              className="btn-premium py-2 px-5 text-sm"
-              onClick={() => setStep(2)}
-            >
-              Continue
-            </button>
-          </>
-        ) : (
+        <>
           <button
             className="px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 text-text-muted hover:text-white hover:bg-white/10 transition-colors"
-            onClick={() => setStep(1)}
+            onClick={onClose}
           >
-            ← Back
+            Cancel
           </button>
-        )
+          <button
+            className="btn-premium py-2 px-5 text-sm"
+            onClick={handleExport}
+          >
+            Export to Excel
+          </button>
+        </>
       }
     >
-        {step === 1 ? (
-          <>
-            <p className="text-muted small mb-3">
-              Select the columns to include. Leave all unchecked to export everything.
-            </p>
-            <div className="d-flex gap-2 mb-3">
-              <button
-                className="btn-small-link"
-                onClick={() => setSelected(allHeaders)}
-              >
-                Select all
-              </button>
-              <span className="text-muted">|</span>
-              <button className="btn-small-link" onClick={() => setSelected([])}>
-                Clear
-              </button>
-            </div>
+      <p className="text-muted small mb-3">
+        Select the columns to include in the Excel file. Leave all unchecked to export everything.
+      </p>
+      <div className="d-flex gap-2 mb-3">
+        <button
+          className="btn-small-link"
+          onClick={() => setSelected(allHeaders)}
+        >
+          Select all
+        </button>
+        <span className="text-muted">|</span>
+        <button className="btn-small-link" onClick={() => setSelected([])}>
+          Clear
+        </button>
+      </div>
+      <div className="grid gap-[0.6rem] p-1" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))" }}>
+        {allHeaders.map((h) => {
+          const active = selected.includes(h);
+          return (
             <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-                gap: "0.6rem",
-                padding: "0.25rem",
-              }}
+              key={h}
+              onClick={() => toggleHeader(h)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-[10px] cursor-pointer text-[0.8rem] transition-all duration-150 border ${
+                active
+                  ? "border-primary bg-primary/[0.18] text-primary-light font-bold"
+                  : "border-white/10 bg-white/5 text-white/75 font-medium"
+              }`}
             >
-              {allHeaders.map((h) => {
-                const active = selected.includes(h);
-                return (
-                  <div
-                    key={h}
-                    onClick={() => toggleHeader(h)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      padding: "0.5rem 0.75rem",
-                      borderRadius: 10,
-                      cursor: "pointer",
-                      border: `1px solid ${active ? "#6366f1" : "rgba(255,255,255,0.12)"}`,
-                      background: active ? "rgba(99,102,241,0.18)" : "rgba(255,255,255,0.05)",
-                      color: active ? "#a5b4fc" : "rgba(255,255,255,0.75)",
-                      fontWeight: active ? 700 : 500,
-                      transition: "all 0.15s ease",
-                      fontSize: "0.8rem",
-                    }}
-                  >
-                    <span
-                      style={{
-                        /* Scrollbar */
-                        width: 16,
-                        height: 16,
-                        borderRadius: 4,
-                        border: `2px solid ${active ? "#6366f1" : "rgba(255,255,255,0.25)"}`,
-                        background: active ? "#6366f1" : "rgba(255,255,255,0.08)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                      }}
-                    >
-                      {active && (
-                        <FontAwesomeIcon
-                          icon={faCheckCircle}
-                          style={{ color: "white", fontSize: 10 }}
-                        />
-                      )}
-                    </span>
-                    <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      {h}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "1rem",
-              padding: "0.5rem 0",
-            }}
-          >
-            {formats.map((f) => (
-              <button
-                key={f.id}
-                onClick={() => handleExport(f.id)}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "1.25rem",
-                  borderRadius: 14,
-                  border: `1px solid ${f.color}30`,
-                  background: `${f.color}10`,
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "none")}
+              <span
+                className={`w-4 h-4 rounded shrink-0 flex items-center justify-center border-2 ${
+                  active ? "border-primary bg-primary" : "border-white/25 bg-white/[0.08]"
+                }`}
               >
-                <span
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 12,
-                    background: `${f.color}20`,
-                    color: f.color,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "1.2rem",
-                    fontWeight: 900,
-                  }}
-                >
-                  {f.label}
-                </span>
-                <span style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>
-                  {f.desc}
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
+                {active && (
+                  <FontAwesomeIcon icon={faCheckCircle} className="text-white text-[10px]" />
+                )}
+              </span>
+              <span className="overflow-hidden text-ellipsis whitespace-nowrap">{h}</span>
+            </div>
+          );
+        })}
+      </div>
     </CustomModal>
   );
 };
@@ -699,8 +590,9 @@ const CustomTable = ({
       {/* ── Export Modal ── */}
       {showExport && (
         <ExportModal
-          data={data}
+          data={currentItems}
           fileName={title || "export"}
+          title={title}
           onClose={() => setShowExport(false)}
         />
       )}

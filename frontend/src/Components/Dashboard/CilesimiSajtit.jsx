@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import apiClient from "../../api/apiClient";
 import { useSiteSettings } from "../../Context/SiteSettingsContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,10 +16,13 @@ function CilesimiSajtit() {
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const successTimeoutRef = useRef(null);
 
     useEffect(() => {
         if (settings) setForm({ ...settings });
     }, [settings]);
+
+    useEffect(() => () => clearTimeout(successTimeoutRef.current), []);
 
     const handleChange = (e) => {
         setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -58,7 +61,8 @@ function CilesimiSajtit() {
             await apiClient.put("/SiteSettings/PerditesCilesimet", form);
             await fetchSettings();
             setSuccess(true);
-            setTimeout(() => setSuccess(false), 3000);
+            clearTimeout(successTimeoutRef.current);
+            successTimeoutRef.current = setTimeout(() => setSuccess(false), 3000);
         } catch (err) {
             console.error(err);
         } finally {

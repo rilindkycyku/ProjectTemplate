@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,7 +26,8 @@ function ShtoFaturen({ onSuccess, onClose }) {
   });
   const [klientetOptions, setKlientetOptions] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
-  
+  const successTimeoutRef = useRef(null);
+
   useEffect(() => {
     apiClient.get("/Klienti/ShfaqKlientet")
       .then(res => {
@@ -38,6 +39,8 @@ function ShtoFaturen({ onSuccess, onClose }) {
       })
       .catch(console.error);
   }, []);
+
+  useEffect(() => () => clearTimeout(successTimeoutRef.current), []);
 
   const handleClientChange = (option) => {
     if (!option) {
@@ -67,7 +70,8 @@ function ShtoFaturen({ onSuccess, onClose }) {
         telefoni: header.klientiTelefoni,
       });
       setSuccessMessage("Klienti u ruajt me sukses në databazë!");
-      setTimeout(() => setSuccessMessage(""), 3000);
+      clearTimeout(successTimeoutRef.current);
+      successTimeoutRef.current = setTimeout(() => setSuccessMessage(""), 3000);
       setKlientetOptions(prev => [...prev, {
         value: res.data.id,
         label: res.data.emriKompanise,
