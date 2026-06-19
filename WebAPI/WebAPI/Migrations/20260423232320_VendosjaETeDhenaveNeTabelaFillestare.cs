@@ -26,7 +26,7 @@ namespace WebAPI.Migrations
                 values: new object[,]
                 {
                     { "9d6b2651-641d-4c85-9154-99761863fc65", 0, "241f5600-e4e1-4e08-b789-9b0fc9367502", "user@template.com", false, false, null, "USER@TEMPLATE.COM", "USER", "AQAAAAEAACcQAAAAEFvlpjPerR25vlxvKiV9GnWzzfQGEk9LCpEfnHG/yUyyaYXsRp/sN52ZWgKNbsq1JA==", "", false, "3VINW7OQ6CJ7CZE3737G4L6WGMKBHWPT", false, "user" },
-                    { "d2a7088f-a25e-4f3f-8488-b616eeaff928", 0, "297b4ee1-133a-4ad2-8242-201592f7a43d", "menaxher@template.com", false, false, null, "MENAXHER@TEMPLATE.COM", "MENAXHER", "AQAAAAEAACcQAAAAEP60Y+OpxVc3CPWS9NZu79pNu/KAAsxbrm8qTWpL9+ILK+Sd/3Pw4yLEas1N2TXL+g==", "", false, "2TO7IOMEDSKTLMHBALX52ICRC3HX3FNQ", false, "menaxher" },
+                    { "d2a7088f-a25e-4f3f-8488-b616eeaff928", 0, "297b4ee1-133a-4ad2-8242-201592f7a43d", "menaxher@template.com", false, false, null, "MENAXHER@TEMPLATE.COM", "MENAXHER", "AQAAAAEAACcQAAAAEBGZOYR/bE2BuTwJbylfSWpZ8Acb4X+383B52sGDthrqfsieEin5pxlyG4EbNZwUrg==", "", false, "2TO7IOMEDSKTLMHBALX52ICRC3HX3FNQ", false, "menaxher" },
                     { "f2bb7622-23ac-4c5f-8d71-00032b281e37", 0, "5dd7b4ea-994f-43c2-bdfd-1bef310ebf29", "admin@template.com", false, false, null, "ADMIN@TEMPLATE.COM", "ADMIN", "AQAAAAEAACcQAAAAEAy6t6f1jILbKXRyqzSZGrR4zq/Wl8G525tgzrBsqYIG4ksRH5HySRRlJrMtzvfTug==", "", false, "RHCE5BDZYCGBDPAZQ74P3IWVFBNDWMEX", false, "admin" }
                 });
 

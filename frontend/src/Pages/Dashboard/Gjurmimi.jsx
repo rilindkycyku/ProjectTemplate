@@ -4,6 +4,7 @@ import { faTrash, faHistory, faDownload } from "@fortawesome/free-solid-svg-icon
 import apiClient from "../../api/apiClient";
 import CustomTable from "../../Components/layout/CustomTable";
 import { format, parseISO } from "date-fns";
+import { exportListExcel } from "../../utils/exportToExcel";
 
 export default function Gjurmimet() {
     const [gjurmimet, setGjurmimet] = useState([]);
@@ -58,16 +59,22 @@ export default function Gjurmimet() {
 
     const handleExport = async () => {
         try {
-            const response = await apiClient.get("/AdminLogs/EksportoGjurmimet", {
-                responseType: 'blob',
-            });
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `Gjurmimet_${format(new Date(), "yyyyMMdd_HHmmss")}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
+            const headers = ["ID", "Stafi", "Koha", "Veprimi", "Entiteti", "Detajet"];
+            const exportData = filteredLogs.map(k => ({
+                "ID": k.id,
+                "Stafi": k.stafi,
+                "Koha": formatDate(k.koha),
+                "Veprimi": k.veprimi,
+                "Entiteti": k.entiteti,
+                "Detajet": k.detajet
+            }));
+
+            await exportListExcel(
+                "Gjurmimet e Sistemit",
+                headers,
+                exportData,
+                `Gjurmimet_${format(new Date(), "yyyyMMdd_HHmmss")}.xlsx`
+            );
         } catch (err) {
             console.error("Error exporting logs", err);
             alert("Gabim gjatë eksportimit të gjurmimeve.");
@@ -129,7 +136,7 @@ export default function Gjurmimet() {
                         onClick={handleExport}
                         disabled={gjurmimet.length === 0}
                     >
-                        <FontAwesomeIcon icon={faDownload} /> Eksporto CSV
+                        <FontAwesomeIcon icon={faDownload} /> Eksporto Excel
                     </button>
                     <button 
                         className="bg-red-500/20 hover:bg-red-500/40 text-red-400 px-4 py-2 rounded-lg transition-colors flex items-center gap-2" 
